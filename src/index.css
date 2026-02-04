@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  background-color: #ffffff;
+  color: #1e293b; /* Slate 800 */
+}
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glassmorphism utility */
+.glass-effect {
+  @apply bg-white/70 backdrop-blur-xl border-white/20 shadow-xl;
+}
+
+body {
+  @apply bg-white antialiased text-slate-900;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom shadow for the floating navbar */
+.nav-shadow {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
