@@ -1,14 +1,20 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import realEstateHDR from '../assets/realestate-hdr-1.jpg.webp';
+import productRetouching from '../assets/product-retouching1.jpg.webp';
+import fashionRetouching from '../assets/fashion-retouching-1.jpg.webp';
+import foodPhotography from '../assets/food-photography-1.jpg.webp';
+import virtualStaging from '../assets/virtual-staging (1)-optimized.webp';
+import interiorDesign from '../assets/interior-design-1.jpg.webp';
 
 const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1599693489843-c9fc954625b1?q=80&w=600", alt: "Real Estate HDR", span: "md:row-span-2" }, 
-  { src: "https://images.unsplash.com/photo-1560518420-7c251d8b9f71?q=80&w=400", alt: "Product Retouching", span: "" },
-  { src: "https://images.unsplash.com/photo-1549480967-152e0a6d10e7?q=80&w=400", alt: "Fashion Retouching", span: "" },
-  { src: "https://images.unsplash.com/photo-1579782522079-c5211516e174?q=80&w=600", alt: "Food Photography", span: "md:row-span-2" }, 
-  { src: "https://images.unsplash.com/photo-1600585152914-d07f90371427?q=80&w=400", alt: "Virtual Staging Example", span: "" },
-  { src: "https://images.unsplash.com/photo-1554995207-c18c69306e26?q=80&w=400", alt: "Interior Design", span: "" },
+  { src: realEstateHDR, alt: "Real Estate HDR", span: "md:row-span-2" }, 
+  { src: productRetouching, alt: "Product Retouching", span: "" },
+  { src: fashionRetouching, alt: "Fashion Retouching", span: "" },
+  { src: foodPhotography, alt: "Food Photography", span: "md:row-span-2" }, 
+  { src: virtualStaging, alt: "Virtual Staging Example", span: "" },
+  { src: interiorDesign, alt: "Interior Design", span: "" },
 ];
 
 const GalleryPreview = () => {
