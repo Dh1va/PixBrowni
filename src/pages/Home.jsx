@@ -1,4 +1,5 @@
 import Hero from '../components/Hero';
+import TechStack from '../components/TechStack';
 import TrustedBy from '../components/TrustedBy';
 import ServicesShowcase from '../components/ServicesShowcase';
 import GalleryPreview from '../components/GalleryPreview';
@@ -10,6 +11,7 @@ const Home = () => {
   return (
     <div className="bg-white min-h-screen">
       <Hero />
+      {/* <TechStack/> */}
       <TrustedBy />
       <ServicesShowcase />
       <GalleryPreview />

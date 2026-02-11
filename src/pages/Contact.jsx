@@ -56,8 +56,8 @@ const Contact = () => {
   };
 
   const contactMethods = [
-    { icon: <Mail size={20} />, label: "Email Us", val: "hello@pixbrowni.com", link: "mailto:hello@pixbrowni.com" },
-    { icon: <Phone size={20} />, label: "Call Us", val: "+91 70105 96034", link: "tel:+917010596034" },
+    { icon: <Mail size={20} />, label: "Email Us", val: "pixbrowni@gmail.com", link: "mailto:pixbrowni@gmail.com" },
+    { icon: <Phone size={20} />, label: "Call Us", val: "+91 75024 73853", link: "tel:+917502473853" },
     { icon: <MapPin size={20} />, label: "Studio", val: "Global Remote / NY Hub", link: "#" },
   ];
 

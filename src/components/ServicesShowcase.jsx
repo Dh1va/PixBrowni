@@ -1,152 +1,149 @@
 import { motion } from 'framer-motion';
-import { Home, Sparkles, Box, Video, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const ServicesShowcase = () => {
   const services = [
     {
+      id: "hdr-blending",
       title: "HDR Blending",
-      desc: "Perfectly balanced exposure for luxury architecture and real estate.",
-      icon: <Home className="w-6 h-6" />,
-      size: "lg",
+      tagline: "Architecture",
+      desc: "Our high-dynamic-range blending is engineered for luxury real estate. We specialize in natural luminosity, merging multiple exposures to preserve exterior views while maintaining inviting interior tones.",
       image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1200",
-      dark: true 
+      bgColor: "bg-white",
+      features: [
+        { name: "Day to Dusk (Twilight)", path: "/services/hdr-blending" },
+        { name: "Window View Preservation", path: "/services/hdr-blending" },
+        { name: "Flash-Ambient (Flambient)", path: "/services/hdr-blending" },
+        { name: "Color Cast Removal", path: "/services/photo-retouching" }
+      ]
     },
     {
-      title: "Model Retouching",
-      desc: "Editorial skin & texture correction for fashion.",
-      icon: <Sparkles className="w-6 h-6" />,
-      size: "sm",
-      color: "bg-orange-50",
+      id: "model-retouching",
+      title: "Post Production",
+      tagline: "Editorial",
+      desc: "We provide high-end frequency separation and non-destructive dodge-and-burn for fashion and beauty. Our editors focus on micro-texture preservation, ensuring skin looks flawless yet authentic.",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200",
+      bgColor: "bg-[#F8FAFC]",
+      features: [
+        { name: "Frequency Separation", path: "/services/model-retouching" },
+        { name: "Advanced Image Masking", path: "/services/image-masking" },
+        { name: "Global Color Grading", path: "/services/photo-retouching" },
+        { name: "Background Extensions", path: "/services/clipping-path" }
+      ]
     },
     {
+      id: "virtual-staging",
       title: "Virtual Staging",
-      desc: "Turn empty rooms into high-end living spaces.",
-      icon: <Box className="w-6 h-6" />,
-      size: "sm",
-      color: "bg-slate-50",
-    },
-    {
-      title: "Video Editing",
-      desc: "Cinematic property films with smooth transitions & pacing.",
-      icon: <Video className="w-6 h-6" />,
-      size: "lg",
-      image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200",
-      dark: true 
-    },
+      tagline: "3D Rendering",
+      desc: "Transform vacant spaces into aspirational homes. Using high-fidelity 3D asset libraries, we match perspective and lighting to the original shot, providing buyers with a realistic sense of luxury.",
+      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1200",
+      bgColor: "bg-[#FFF7ED]",
+      features: [
+        { name: "Contemporary Staging", path: "/services/virtual-staging" },
+        { name: "Virtual Decluttering", path: "/services/decluttering" },
+        { name: "2D/3D Floor Planning", path: "/services/floor-planning" },
+        { name: "Object Removal", path: "/services/decluttering" }
+      ]
+    }
   ];
 
-  // Header Animation Variants
-  const headerVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-  };
-
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20 md:py-32 bg-white overflow-hidden">
-      {/* --- ANIMATED HEADER --- */}
-      <motion.div 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-8"
-      >
-        <div className="max-w-3xl">
-          <motion.h2 
-            variants={headerVariants}
-            className="text-[10px] md:text-sm font-bold tracking-[0.3em] text-orange-600 uppercase mb-4"
-          >
-            Our Expertise
-          </motion.h2>
-          <motion.p 
-            variants={headerVariants}
-            className="text-4xl md:text-6xl font-serif font-bold text-slate-900 leading-[1.1]"
-          >
-            Specialized solutions <br className="hidden md:block" /> 
-            <span className="text-slate-400 italic font-medium">for every</span> discipline.
-          </motion.p>
-        </div>
+    <section className="bg-[#FBFBFD] py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-6">
         
-        <motion.div variants={headerVariants}>
-          <Link to="/services" className="group flex items-center gap-2 text-slate-900 font-bold border-b-2 border-slate-900 pb-1 hover:text-orange-600 hover:border-orange-600 transition-all text-sm md:text-base">
-            Explore All Services <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform" />
-          </Link>
-        </motion.div>
-      </motion.div>
-
-      {/* --- RESPONSIVE BENTO GRID --- */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 auto-rows-[350px] md:auto-rows-[400px]">
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, delay: index * 0.1 }}
-            className={`group relative rounded-[32px] md:rounded-[40px] overflow-hidden transition-all duration-700 shadow-sm hover:shadow-2xl ${
-              service.size === 'lg' ? 'md:col-span-2' : 'md:col-span-1'
-            } ${service.color || 'bg-white'}`}
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gap-6">
+          <div className="max-w-2xl">
+            <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-600 mb-4">Core Disciplines</h2>
+            <p className="text-3xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">
+              Specialized <span className="italic font-light text-slate-400">Expertise.</span>
+            </p>
+          </div>
+          <Link 
+            to="/services" 
+            className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-900 border-b-2 border-slate-900 pb-2 hover:text-orange-600 hover:border-orange-600 transition-all"
           >
-            {/* Background Image Logic */}
-            {service.image && (
-              <>
-                <img 
-                  src={service.image} 
-                  alt={service.title} 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                />
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
-              </>
-            )}
+            View All Services <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
 
-            <div className={`relative z-20 h-full p-8 md:p-10 flex flex-col justify-between ${
-              service.image || service.dark ? 'text-white' : 'text-slate-900'
-            }`}>
-              <div>
-                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center mb-6 shadow-sm ${
-                   service.image || service.dark ? 'bg-white/20 backdrop-blur-md text-white' : 'bg-white text-orange-600 border border-slate-100'
-                }`}>
-                  {service.icon}
+        {/* Sticky Stacking Container */}
+        <div className="relative">
+          {services.map((service, index) => (
+            <div 
+              key={service.id}
+              className="sticky top-20 md:top-28 mb-12 md:mb-32"
+              style={{ zIndex: index + 1 }}
+            >
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className={`relative overflow-hidden rounded-[32px] border border-slate-100 shadow-2xl ${service.bgColor} p-6 md:p-10 lg:p-12`}
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  
+                  {/* COL 1: IMAGE */}
+                  <div className="lg:col-span-4 rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-[3/4] shadow-sm bg-slate-100">
+                    <img 
+                      src={service.image} 
+                      alt={service.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                  </div>
+
+                  {/* COL 2: CONTENT */}
+                  <div className="lg:col-span-5 space-y-4 md:space-y-6">
+                    <span className="text-[9px] font-black uppercase tracking-widest text-orange-600 flex items-center gap-2">
+                      <span className="w-6 h-[1px] bg-orange-200" /> {service.tagline}
+                    </span>
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-slate-900">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-slate-600 leading-relaxed font-medium">
+                      {service.desc}
+                    </p>
+                    
+                    {/* Clear Primary Button */}
+                    <div className="pt-4">
+                      <Link 
+                        to={`/services/${service.id}`}
+                        className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:bg-orange-600 hover:shadow-lg shadow-slate-900/10 w-full md:w-auto"
+                      >
+                        Explore Service <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* COL 3: SUB-SERVICES - HIDDEN ON MOBILE */}
+                  <div className="hidden lg:block lg:col-span-3 border-l border-slate-200 pl-10 h-full">
+                    <p className="text-[14px] font-black uppercase tracking-widest text-slate-900 mb-8">WE DO</p>
+                    <div className="space-y-4">
+                      {service.features.map((feature) => (
+                        <Link 
+                          key={feature.name}
+                          to={feature.path}
+                          className="group flex flex-col gap-1 transition-all"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="text-[14px] font-bold text-slate-800 group-hover:text-orange-600 transition-colors tracking-tight">
+                              {feature.name}
+                            </span>
+                            <CheckCircle2 className="w-3.5 h-3.5 text-slate-200 group-hover:text-orange-500 transition-colors" />
+                          </div>
+                          <div className="w-full h-[1px] bg-slate-100 group-hover:bg-orange-100 transition-colors" />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-3 tracking-tight">{service.title}</h3>
-                <p className={`max-w-xs text-xs md:text-sm leading-relaxed font-semibold ${
-                  service.image || service.dark ? 'text-slate-200' : 'text-slate-900'
-                }`}>
-                  {service.desc}
-                </p>
-              </div>
-
-              <div className="flex justify-between items-center">
-                 <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-80">View Details</span>
-                 <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
-                   service.image || service.dark 
-                   ? 'border-white/40 group-hover:bg-white group-hover:text-slate-900' 
-                   : 'border-slate-200 group-hover:bg-slate-900 group-hover:text-white'
-                 }`}>
-                    <ArrowUpRight className="w-5 h-5" />
-                 </div>
-              </div>
+              </motion.div>
             </div>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
-
-      {/* --- RESPONSIVE PILL TAGS --- */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-12 md:mt-16 pt-8 md:pt-10 border-t border-slate-100 flex flex-wrap items-center gap-2 md:gap-3"
-      >
-        <span className="w-full md:w-auto text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 md:mb-0 mr-0 md:mr-4">
-          Other Specialized Services:
-        </span>
-        {["Panorama Stitching", "Decluttering", "Aerial Editing", "Interactive Floor Planning", "Clipping Path"].map((item) => (
-          <span key={item} className="px-4 py-2 md:px-6 md:py-2.5 rounded-full border border-slate-100 bg-white text-slate-600 text-[10px] md:text-xs font-bold hover:bg-orange-600 hover:text-white hover:border-orange-600 transition-all cursor-pointer shadow-sm">
-            {item}
-          </span>
-        ))}
-      </motion.div>
     </section>
   );
 };
