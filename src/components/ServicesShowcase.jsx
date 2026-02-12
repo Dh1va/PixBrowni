@@ -49,10 +49,10 @@ const ServicesShowcase = () => {
   // Scroll Animation Variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] }
     }
   };
 
@@ -69,7 +69,7 @@ const ServicesShowcase = () => {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* --- SECTION HEADER --- */}
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -84,8 +84,11 @@ const ServicesShowcase = () => {
               </span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-5xl md:text-6xl font-serif font-bold leading-[1.1] text-slate-900 tracking-tight">
-              Specialized solutions <br />
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight text-slate-900 mb-6 tracking-tight"
+            >
+              Specialized solutions <br className="hidden sm:block" />
               <span className="italic font-light text-orange-600">for visual creators.</span>
             </motion.h2>
           </div>
@@ -101,7 +104,7 @@ const ServicesShowcase = () => {
         </motion.div>
 
         {/* --- SERVICE CARDS GRID --- */}
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -149,27 +152,27 @@ const ServicesShowcase = () => {
               </div>
 
               <Link
-  to={service.path}
-  className="relative overflow-hidden inline-flex items-center justify-center gap-3 w-full py-5  text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-lg transition-all duration-500 group/btn"
-  style={{
-    background: 'linear-gradient(to right, #ea580c 50%, #0f172a 50%)',
-    backgroundSize: '200% 100%',
-    backgroundPosition: 'right bottom',
-  }}
-  onMouseEnter={(e) => (e.currentTarget.style.backgroundPosition = 'left bottom')}
-  onMouseLeave={(e) => (e.currentTarget.style.backgroundPosition = 'right bottom')}
->
-  <span className="relative z-10 flex items-center gap-3">
-    Explore More
-    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-  </span>
-</Link>
+                to={service.path}
+                className="relative overflow-hidden inline-flex items-center justify-center gap-3 w-full py-5  text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-lg transition-all duration-500 group/btn"
+                style={{
+                  background: 'linear-gradient(to right, #ea580c 50%, #0f172a 50%)',
+                  backgroundSize: '200% 100%',
+                  backgroundPosition: 'right bottom',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundPosition = 'left bottom')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundPosition = 'right bottom')}
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  Explore More
+                  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                </span>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
 
         {/* --- BOTTOM CALLOUT --- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ delay: 1 }}

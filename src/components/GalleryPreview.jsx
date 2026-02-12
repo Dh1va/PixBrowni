@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Globe2, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Assets
+// Assets (Keep your current imports)
 import realEstateHDR from '../assets/realestate-hdr-1.jpg.webp';
 import productRetouching from '../assets/product-retouching1.jpg.webp';
 import fashionRetouching from '../assets/fashion-retouching-1.jpg.webp';
@@ -22,42 +22,69 @@ const galleryImages = [
 const GalleryPreview = () => {
   const duplicatedImages = [...galleryImages, ...galleryImages, ...galleryImages];
 
+  // Scroll Animation Variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } 
+    }
+  };
+
   return (
-    <section className="bg-[#FBFBFD] py-12 md:py-24 -mt-20 md:-mt-32 overflow-hidden relative z-30">
+    <section className="bg-[#FBFBFD] py-24 md:py-32 -mt-20 md:-mt-32 overflow-hidden relative z-30">
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* --- HEADER --- */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-8">
+        {/* --- HEADER WITH SCROLL ANIMATION --- */}
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-8"
+        >
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6">
               <Globe2 className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" />
-              <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.25em] text-slate-500 whitespace-nowrap">
-                Visual Portfolio <span className="text-slate-300 mx-1"></span> 
+              <span className="text-[9px] font-black uppercase tracking-[0.25em] text-slate-500 whitespace-nowrap">
+                Visual Portfolio
               </span>
-            </div>
+            </motion.div>
 
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight text-slate-900 tracking-tight">
+            {/* Exactly Matched Hero Size */}
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight text-slate-900 mb-6 tracking-tight"
+            >
               A Glimpse into <br className="hidden sm:block" />
               <span className="italic font-light text-orange-600">Visual Excellence.</span>
-            </h2>
+            </motion.h2>
           </div>
 
-          <Link 
-            to="/gallery" 
-            className="group relative px-8 py-4 bg-white border border-slate-200 text-slate-900 rounded-xl font-bold text-[10px] sm:text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300 hover:border-slate-900 hover:shadow-lg"
-          >
-            View Full Gallery <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
+          <motion.div variants={fadeInUp}>
+            <Link 
+              to="/gallery" 
+              className="group relative px-8 py-4 bg-white border border-slate-200 text-slate-900 rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all duration-300 hover:border-orange-600 hover:text-orange-600 hover:shadow-lg active:scale-95"
+            >
+              View Full Gallery <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
 
-      {/* --- INFINITE SLIDER --- */}
-      <div className="relative flex overflow-hidden">
+      {/* --- INFINITE SLIDER WITH ENTRANCE ANIMATION --- */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        viewport={{ once: true }}
+        className="relative flex overflow-hidden"
+      >
         <motion.div 
           animate={{ x: ["0%", "-33.333%"] }}
           transition={{ 
             ease: "linear", 
-            duration: 45, 
+            duration: 50, // Slightly slower for more premium feel
             repeat: Infinity 
           }}
           className="flex whitespace-nowrap gap-6 md:gap-8 px-6"
@@ -65,45 +92,39 @@ const GalleryPreview = () => {
           {duplicatedImages.map((image, index) => (
             <div 
               key={index}
-              className="relative w-[300px] md:w-[500px] aspect-[16/10] flex-shrink-0 rounded-[2rem] overflow-hidden group cursor-pointer bg-slate-100"
+              className="relative w-[300px] md:w-[520px] aspect-[16/10] flex-shrink-0 rounded-[2.5rem] overflow-hidden group cursor-pointer bg-slate-100 border border-slate-200/50"
             >
-              {/* Image - Static & Clear */}
               <img 
                 src={image.src} 
                 alt={image.alt} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               
-              {/* --- SOLID PROFESSIONAL HOVER --- */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-900/40 flex flex-col justify-between p-8 pointer-events-none">
-                
-                {/* Top Right Arrow Box */}
+              {/* --- PREMIUM HOVER OVERLAY --- */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-slate-900/40 flex flex-col justify-between p-10 pointer-events-none">
                 <div className="flex justify-end">
-                  <div className="h-10 w-10 md:h-12 md:w-12 bg-orange-600 text-white flex items-center justify-center rounded-xl shadow-lg transform translate-x-4 group-hover:translate-x-0 transition-transform duration-300">
-                    <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6" />
+                  <div className="h-12 w-12 bg-orange-600 text-white flex items-center justify-center rounded-2xl shadow-xl transform translate-x-4 group-hover:translate-x-0 transition-transform duration-500">
+                    <ArrowUpRight className="w-6 h-6" />
                   </div>
                 </div>
 
-                {/* Bottom Service Pill */}
-                <div className="flex justify-center">
-                  <div className="bg-white px-6 py-2.5 rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="text-slate-900 text-xs md:text-sm font-bold tracking-tight">
+                <div className="flex justify-start">
+                  <div className="bg-white/95 backdrop-blur-sm px-6 py-3 rounded-2xl shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 border border-white">
+                    <p className="text-orange-600 text-[10px] font-black uppercase tracking-[0.2em] mb-1">{image.tag}</p>
+                    <p className="text-slate-900 text-sm md:text-base font-bold tracking-tight">
                       {image.alt}
-                    </span>
+                    </p>
                   </div>
                 </div>
               </div>
-
-              {/* Permanent Subtle Frame */}
-              <div className="absolute inset-0 border border-slate-200/20 rounded-[2rem] pointer-events-none group-hover:border-orange-600/30 transition-colors"></div>
             </div>
           ))}
         </motion.div>
 
-        {/* Professional Edge Fades */}
-        <div className="absolute inset-y-0 left-0 w-32 md:w-80 bg-gradient-to-r from-[#FBFBFD] via-[#FBFBFD]/50 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-32 md:w-80 bg-gradient-to-l from-[#FBFBFD] via-[#FBFBFD]/50 to-transparent z-10 pointer-events-none" />
-      </div>
+        {/* Edge Fades */}
+        <div className="absolute inset-y-0 left-0 w-32 md:w-80 bg-gradient-to-r from-[#FBFBFD] via-[#FBFBFD]/40 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-32 md:w-80 bg-gradient-to-l from-[#FBFBFD] via-[#FBFBFD]/40 to-transparent z-10 pointer-events-none" />
+      </motion.div>
     </section>
   );
 };

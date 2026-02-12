@@ -27,10 +27,10 @@ const Testimonials = () => {
   // Scroll Animation Variants
   const fadeUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] }
     }
   };
 
@@ -45,24 +45,29 @@ const Testimonials = () => {
   return (
     <section className="py-24 md:py-32 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div 
+        <motion.div
           className="flex flex-col lg:flex-row gap-16"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerContainer}
         >
-          
+
           {/* Section Heading - Animates on Scroll */}
           <div className="lg:w-1/3 flex flex-col justify-center">
             <motion.div variants={fadeUp}>
               <h2 className="text-orange-600 font-black tracking-[0.4em] uppercase text-[11px] mb-4">
                 Service Showcase
               </h2>
-              <h3 className="text-4xl md:text-6xl font-serif font-bold text-slate-900 leading-[1.1] mb-6">
-                What our <span className="text-orange-600 italic font-light">partners</span> <br /> say about us.
+
+              {/* Exactly Matched Hero Size & Responsive Scale */}
+              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight text-slate-900 mb-6 tracking-tight">
+                What our <span className="text-orange-600 italic font-light">partners</span> <br className="hidden sm:block" />
+                say about us.
               </h3>
+
               <div className="w-16 h-1 bg-orange-600 mb-8" />
+
               <p className="text-slate-600 text-lg leading-relaxed max-w-sm">
                 From luxury boutiques to commercial architects, we deliver excellence at scale.
               </p>
@@ -84,7 +89,7 @@ const Testimonials = () => {
               className="testimonial-swiper !pb-20"
             >
               {reviews.map((rev, i) => (
-                <SwiperSlide key={i} className="!h-auto flex"> 
+                <SwiperSlide key={i} className="!h-auto flex">
                   {/* Individual cards can also have subtle internal scroll delay if preferred */}
                   <div className="w-full p-8 md:p-12 bg-orange-50/40 rounded-[2.5rem] border border-orange-200 flex flex-col justify-between transition-all duration-300 shadow-[0_10px_30px_rgba(234,88,12,0.05)]">
                     <div>
@@ -93,7 +98,7 @@ const Testimonials = () => {
                         {rev.text}
                       </p>
                     </div>
-                    
+
                     <div className="pt-8 border-t border-orange-200 flex items-center gap-4">
                       <div>
                         <h4 className="font-bold text-slate-900 text-lg tracking-tight">{rev.name}</h4>
