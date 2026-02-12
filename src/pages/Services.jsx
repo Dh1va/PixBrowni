@@ -75,6 +75,7 @@ const Services = () => {
   ];
 
   return (
+    
     <div className="bg-[#F8FAFC] pt-32 md:pt-48 pb-24 overflow-hidden text-slate-900">
       <div className="max-w-7xl mx-auto px-6">
         

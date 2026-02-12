@@ -7,6 +7,7 @@ import AboutSection from '../components/AboutSection';
 import Process from '../components/Process';
 import Testimonials from '../components/Testimonials';
 import ContactSection from '../components/ContactSection';
+import FAQ from '../components/FAQ';
 
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
       <ContactSection />
       <GalleryPreview />    
       <Testimonials />
+      <FAQ/>
       
       
     </div>
