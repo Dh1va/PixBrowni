@@ -6,6 +6,8 @@ import GalleryPreview from '../components/GalleryPreview';
 import AboutSection from '../components/AboutSection';
 import Process from '../components/Process';
 import Testimonials from '../components/Testimonials';
+import ContactSection from '../components/ContactSection';
+
 
 const Home = () => {
   return (
@@ -14,9 +16,10 @@ const Home = () => {
       {/* <TechStack/> */}
       <TrustedBy />
       <ServicesShowcase />
-      <GalleryPreview />
-      <Process />
       <AboutSection />
+      <Process />
+      <ContactSection />
+      <GalleryPreview />    
       <Testimonials />
       
       

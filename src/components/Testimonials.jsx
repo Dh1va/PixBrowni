@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Quote } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 
@@ -10,12 +9,12 @@ const Testimonials = () => {
   const reviews = [
     {
       name: "Jonathan Wright",
-      role: "Luxury Real Estate Photographer",
+      role: "Luxury Real Estate",
       text: "Pixbrowni transformed my workflow. Their HDR blending is the most natural I've seen in the industry. My delivery times have been cut in half.",
     },
     {
       name: "Sarah Jenkins",
-      role: "Fashion Editor, Studio X",
+      role: "Fashion Editor",
       text: "The skin retouching is flawless—they maintain texture while achieving that high-end editorial look perfectly. Truly a premium partner.",
     },
     {
@@ -25,112 +24,107 @@ const Testimonials = () => {
     }
   ];
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
+  // Scroll Animation Variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
     visible: { 
       opacity: 1, 
       y: 0, 
-      transition: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] } 
+      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] } 
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
     }
   };
 
   return (
-    <section className="py-20 md:py-32  overflow-hidden">
+    <section className="py-24 md:py-32 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-3 gap-12 md:gap-16 items-center">
+        <motion.div 
+          className="flex flex-col lg:flex-row gap-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}
+        >
           
-          {/* Header - Added relative z-20 to stay above slider if needed */}
-          <motion.div
-            className="relative z-20 " 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.h2 
-              variants={fadeInUp}
-              className="text-[10px] md:text-sm font-bold tracking-[0.3em] text-orange-600 uppercase mb-4"
-            >
-              Reviews
-            </motion.h2>
-            <motion.p 
-              variants={fadeInUp}
-              className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 leading-tight"
-            >
-              What the <br className="hidden md:block" />
-              <span className="italic font-light text-slate-400 text-3xl md:text-5xl lg:text-6xl">Industry Leaders</span> <br className="hidden md:block" />
-              are saying.
-            </motion.p>
-          </motion.div>
-          
-          {/* Slider Container - Constraints added */}
-          <div className="lg:col-span-2 w-full min-w-0 overflow-hidden md:overflow-visible py-10 -my-10">
+          {/* Section Heading - Animates on Scroll */}
+          <div className="lg:w-1/3 flex flex-col justify-center">
+            <motion.div variants={fadeUp}>
+              <h2 className="text-orange-600 font-black tracking-[0.4em] uppercase text-[11px] mb-4">
+                Service Showcase
+              </h2>
+              <h3 className="text-4xl md:text-6xl font-serif font-bold text-slate-900 leading-[1.1] mb-6">
+                What our <span className="text-orange-600 italic font-light">partners</span> <br /> say about us.
+              </h3>
+              <div className="w-16 h-1 bg-orange-600 mb-8" />
+              <p className="text-slate-600 text-lg leading-relaxed max-w-sm">
+                From luxury boutiques to commercial architects, we deliver excellence at scale.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Slider - Entire container fades up on scroll */}
+          <motion.div className="lg:w-2/3 min-w-0" variants={fadeUp}>
             <Swiper
               modules={[Pagination, Autoplay]}
-              spaceBetween={24}
+              spaceBetween={30}
               slidesPerView={1}
+              autoHeight={false}
               pagination={{ clickable: true }}
-              autoplay={{ delay: 5000 }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
               breakpoints={{
-                768: {
-                  slidesPerView: 2,
-                  allowTouchMove: false,
-                },
-                0: {
-                  slidesPerView: 1,
-                  allowTouchMove: true,
-                }
+                768: { slidesPerView: 2 },
               }}
-              className="testimonial-swiper !pb-16"
+              className="testimonial-swiper !pb-20"
             >
               {reviews.map((rev, i) => (
-                <SwiperSlide key={i} className="h-auto">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, delay: i * 0.1 }}
-                    whileHover={{ y: -8 }}
-                    className="h-full p-8 md:p-10 rounded-[2rem] md:rounded-[32px] bg-slate-50 border border-slate-100 relative group transition-all duration-300 flex flex-col"
-                  >
-                    <Quote className="absolute top-8 right-8 w-8 h-8 text-orange-200 opacity-50 group-hover:text-orange-500 transition-colors duration-500" />
-                    
-                    <p className="text-slate-600 italic mb-8 leading-relaxed text-base">
-                      "{rev.text}"
-                    </p>
-                    
-                    <div className="mt-auto">
-                      <p className="font-bold text-slate-900 text-lg">{rev.name}</p>
-                      <p className="text-[10px] md:text-xs font-bold text-orange-600 uppercase tracking-widest mt-1.5">
-                        {rev.role}
+                <SwiperSlide key={i} className="!h-auto flex"> 
+                  {/* Individual cards can also have subtle internal scroll delay if preferred */}
+                  <div className="w-full p-8 md:p-12 bg-orange-50/40 rounded-[2.5rem] border border-orange-200 flex flex-col justify-between transition-all duration-300 shadow-[0_10px_30px_rgba(234,88,12,0.05)]">
+                    <div>
+                      <div className="text-orange-600 text-6xl font-serif mb-2 leading-none opacity-60">“</div>
+                      <p className="text-slate-800 text-xl leading-relaxed mb-10 font-medium">
+                        {rev.text}
                       </p>
                     </div>
-                  </motion.div>
+                    
+                    <div className="pt-8 border-t border-orange-200 flex items-center gap-4">
+                      <div>
+                        <h4 className="font-bold text-slate-900 text-lg tracking-tight">{rev.name}</h4>
+                        <p className="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] mt-1">
+                          {rev.role}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
       <style jsx global>{`
+        .testimonial-swiper .swiper-wrapper {
+          display: flex;
+        }
         .testimonial-swiper .swiper-pagination-bullet {
-          background: #cbd5e1;
+          background: #ffedd5; 
           opacity: 1;
           width: 8px;
           height: 8px;
         }
         .testimonial-swiper .swiper-pagination-bullet-active {
-          background: #ea580c;
-          width: 24px;
-          border-radius: 4px;
-        }
-        /* Mobile specific constraint */
-        @media (max-width: 767px) {
-          .testimonial-swiper {
-            width: 100%;
-            padding-left: 4px;
-            padding-right: 4px;
-          }
+          background: #ea580c; /* Primary Orange */
+          width: 32px;
+          border-radius: 8px;
+          transition: all 0.5s ease-in-out;
         }
       `}</style>
     </section>
