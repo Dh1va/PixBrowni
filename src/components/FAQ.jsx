@@ -37,7 +37,7 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="bg-white py-20 md:py-32 overflow-hidden">
+    <section className="bg-white py-20 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
@@ -50,7 +50,7 @@ const FAQ = () => {
               about <span className="text-orange-600">Pixbrowni's</span> <br />
               services
             </h2>
-            <p className="text-slate-500 text-sm md:text-lg leading-relaxed max-w-sm">
+            <p className="text-slate-600 text-sm md:text-lg leading-relaxed font-medium px-4 opacity-90">
               You might not know what to do at first. To help you get started, here are some common questions asked by our clients to help address any concerns.
             </p>
           </div>

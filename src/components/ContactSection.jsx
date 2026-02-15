@@ -1,138 +1,156 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Globe2, Mail, Sparkles, CheckCircle2, ChevronDown } from 'lucide-react';
+import { Send, Globe2, Mail, Sparkles, CheckCircle2, ChevronDown, Gift, Phone } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success'
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const data = new FormData(form);
+    setStatus('sending');
 
-    try {
-      const response = await fetch("https://formspree.io/f/pixbrowni@gmail.com", {
-        method: "POST",
-        body: data,
-        headers: { 'Accept': 'application/json' }
+    // EmailJS SDK Integration
+    emailjs.sendForm(
+      'service_riwmr9z',
+      'template_dce4fnq',
+      e.target,
+      'z10UeD5D-7Xxov_uB'
+    )
+      .then(() => {
+        // Optimistic UI Success Sequence
+        setStatus('success');
+        setTimeout(() => {
+          setIsSubmitted(true);
+          setStatus('idle');
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error('EmailJS Error:', error);
+        setStatus('idle');
+        alert("Submission failed. Please try again or email us directly at pixbrowni@gmail.com");
       });
-      
-      if (response.ok) {
-        setIsSubmitted(true);
-        form.reset();
-      }
-    } catch (error) {
-      console.error("Submission error", error);
-    }
   };
 
-  // Animation Variants
   const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 }
+      y: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
   return (
-    <section className="bg-white pt-24 pb-32 md:pt-40 md:pb-48 overflow-hidden border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-          
-          {/* --- LEFT SIDE: BRAND INFO (Title like Hero/Service) --- */}
+    <section className="bg-[#FF5B33] pt-24 pb-32 md:pt-32 md:pb-48 overflow-hidden relative">
+      {/* Decorative Texture */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none">
+        <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-16 lg:gap-8 items-center">
+
+          {/* --- LEFT SIDE: THE OFFER & CONTACT INFO --- */}
           <motion.div
-            className="lg:col-span-5"
+            className="lg:col-span-6"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
+            viewport={{ once: true }}
+            variants={{
+              visible: { transition: { staggerChildren: 0.1 } }
+            }}
           >
-            {/* Boutique Badge Badge */}
-            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6">
-              <Globe2 className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" />
-              <span className="text-[9px] font-sans font-black uppercase tracking-[0.25em] text-slate-500 whitespace-nowrap">
-                Contact Inquiry <span className="text-slate-300 mx-1">•</span> Pixbrowni Standard
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-sm mb-8">
+              <Gift className="w-4 h-4 text-white flex-shrink-0" />
+              <span className="text-[10px] font-sans font-black uppercase tracking-[0.25em] text-white whitespace-nowrap">
+                Exclusive Invitation
               </span>
             </motion.div>
 
-            {/* Premium Boutique Heading */}
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 mb-8 leading-[1.1] tracking-tight">
-              Let's discuss your <br /> 
-              <span className="italic font-light text-orange-600">next masterpiece.</span>
+            <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-white mb-8 leading-[1.1] tracking-tight">
+              Contact now to get your <br />
+              <span className="italic font-light text-slate-900 underline decoration-white decoration-2 underline-offset-8">free trial.</span>
             </motion.h2>
 
-            <motion.p variants={fadeInUp} className="text-slate-600 text-sm md:text-lg leading-relaxed font-medium mb-12 opacity-90 max-w-md">
-              Our studio team is available 24/7 to provide consistent, high-quality visual solutions tailored to your unique personal style.
+            <motion.p variants={fadeInUp} className="text-white/90 text-sm md:text-xl leading-relaxed font-medium mb-12 max-w-md">
+              Experience the Pixbrowni Standard risk-free. Our team is ready to transform your raw files into high-end gallery masterpieces.
             </motion.p>
 
-            <div className="space-y-8">
-              <motion.div variants={fadeInUp} className="flex items-center gap-6 group">
-                <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-900 group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 shadow-sm">
-                  <Mail className="w-6 h-6" />
+            <div className="space-y-6">
+              {/* Email Link */}
+              <motion.div variants={fadeInUp} className="flex items-center gap-5 group">
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 shadow-sm">
+                  <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Direct Communication</p>
-                  <p className="text-lg font-bold text-slate-900 font-sans tracking-tight group-hover:text-orange-600 transition-colors">pixbrowni@gmail.com</p>
+                  <p className="text-[11px] font-medium text-white/70 mb-0.5">Instant Inquiry</p>
+                  <p className="text-base font-bold text-white font-sans tracking-tight">pixbrowni@gmail.com</p>
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeInUp} className="flex items-center gap-6 group">
-                <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-900 group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 shadow-sm">
-                  <Sparkles className="w-6 h-6" />
+              {/* Phone Link */}
+              <motion.div variants={fadeInUp} className="flex items-center gap-5 group">
+                <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 shadow-sm">
+                  <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Global Support</p>
-                  <p className="text-lg font-bold text-slate-900 font-sans tracking-tight">24/7 Availability</p>
+                  <p className="text-[11px] font-medium text-white/70 mb-0.5">Direct Support</p>
+                  <p className="text-base font-bold text-white font-sans tracking-tight">+91 75024 73853</p>
                 </div>
               </motion.div>
             </div>
           </motion.div>
 
-          {/* --- RIGHT SIDE: NEAT PROFESSIONAL FORM --- */}
+          {/* --- RIGHT SIDE: WHITE FORM --- */}
           <motion.div
-            className="lg:col-span-7"
-            initial={{ opacity: 0, x: 60 }}
+            className="lg:col-span-6 flex justify-center lg:justify-end"
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1 }}
           >
-            <div className="bg-slate-50 rounded-[3rem] p-8 md:p-14 border border-slate-100 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.05)] relative min-h-[600px] flex flex-col justify-center">
+            <div className="w-full max-w-[400px] bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-white/20">
               <AnimatePresence mode="wait">
                 {!isSubmitted ? (
-                  <motion.form 
+                  <motion.form
                     key="contact-form"
                     onSubmit={handleSubmit}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
-                    className="space-y-7"
+                    className="space-y-5"
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
-                      <div className="space-y-2.5">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Full Name</label>
-                        <input name="name" type="text" required placeholder="Enter your name" className="w-full px-7 py-5 bg-white border border-slate-200 rounded-2xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-orange-600 transition-all placeholder:text-slate-300" />
-                      </div>
-                      <div className="space-y-2.5">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email Address</label>
-                        <input name="email" type="email" required placeholder="hello@studio.com" className="w-full px-7 py-5 bg-white border border-slate-200 rounded-2xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-orange-600 transition-all placeholder:text-slate-300" />
-                      </div>
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-medium text-slate-900 ml-1">Full Name</label>
+                      <input name="name" type="text" required placeholder="Enter your name" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all placeholder:text-slate-900/40 text-slate-900" />
                     </div>
 
-                    <div className="space-y-2.5 relative">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Interested Service</label>
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-medium text-slate-900 ml-1">Email Address</label>
+                      <input name="email" type="email" required placeholder="hello@studio.com" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all placeholder:text-slate-900/40 text-slate-900" />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-medium text-slate-900 ml-1">
+                        Mobile Number <span className="text-slate-400 font-normal">(Optional)</span>
+                      </label>
+                      <input name="phone" type="tel" placeholder="Enter your mobile number" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all placeholder:text-slate-900/40 text-slate-900" />
+                    </div>
+
+                    <div className="space-y-1.5 relative">
+                      <label className="text-sm font-medium text-slate-900 ml-1">Interested Service</label>
                       <div className="relative">
-                        <select name="service" required className="w-full px-7 py-5 bg-white border border-slate-200 rounded-2xl text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-600 transition-all appearance-none cursor-pointer">
-                          <option value="" disabled selected>Select a technical discipline</option>
+                        <select name="service" required className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all appearance-none cursor-pointer">
+                          <option value="" disabled selected>Select a discipline</option>
                           <optgroup label="Real Estate & Architecture">
                             <option>HDR Blending</option>
                             <option>Virtual Staging</option>
@@ -146,7 +164,6 @@ const ContactSection = () => {
                             <option>Model Retouching</option>
                             <option>Wedding Editing</option>
                             <option>Food Photo Editing</option>
-                            <option>High-end Retouching</option>
                           </optgroup>
                           <optgroup label="Editing & Post-Process">
                             <option>Clipping Path</option>
@@ -154,40 +171,60 @@ const ContactSection = () => {
                             <option>Video Editing</option>
                           </optgroup>
                         </select>
-                        <div className="absolute right-7 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                          <ChevronDown size={20} />
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                          <ChevronDown size={18} />
                         </div>
                       </div>
                     </div>
 
-                    <div className="space-y-2.5">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Project Brief</label>
-                      <textarea name="message" rows="5" required placeholder="Tell us about your project requirements or specific style guide..." className="w-full px-7 py-5 bg-white border border-slate-200 rounded-2xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-orange-600 transition-all resize-none placeholder:text-slate-300" />
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-medium text-slate-900 ml-1">Project Brief</label>
+                      <textarea name="message" rows="3" required placeholder="Project details..." className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all resize-none placeholder:text-slate-900/40 text-slate-900" />
                     </div>
 
-                    <button type="submit" className="w-full py-6 bg-slate-900 text-white rounded-2xl font-sans font-black text-xs uppercase tracking-[0.3em] flex items-center justify-center gap-3 transition-all duration-500 hover:bg-orange-600 hover:shadow-2xl hover:shadow-orange-600/30 active:scale-95 group">
-                      Send Message <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <button
+                      type="submit"
+                      disabled={status !== 'idle'}
+                      className={`w-full py-6 relative overflow-hidden rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 transition-all duration-500 shadow-xl active:scale-95 group mt-4 cursor-pointer
+                      ${status === 'success' ? 'bg-emerald-600' : 'bg-slate-900'}`}
+                    >
+                      {/* The Text & Icon - z-10 keeps them above the slide-up layer */}
+                      <span className="relative z-10 flex items-center gap-3 text-white">
+                        {status === 'idle' && "Claim Free Trial"}
+                        {status === 'sending' && "Sending..."}
+                        {status === 'success' && "Sent Successfully!"}
+
+                        <Send className={`w-4 h-4 transition-transform duration-300 ease-out 
+                        ${status === 'idle' ? 'group-hover:translate-x-1.5 group-hover:-translate-y-1.5' : ''} 
+                        ${status === 'sending' ? 'animate-pulse' : ''}`}
+                        />
+                      </span>
+
+                      {/* Slide-up Animation Layer - only shows when status is 'idle' */}
+                      {status === 'idle' && (
+                        <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                      )}
                     </button>
                   </motion.form>
                 ) : (
-                  <motion.div 
+                  <motion.div
                     key="success-message"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center py-12"
+                    className="text-center py-10"
                   >
-                    <div className="w-24 h-24 bg-orange-100 text-orange-600 rounded-[2rem] flex items-center justify-center mx-auto mb-10 shadow-inner">
-                      <CheckCircle2 size={48} />
+                    <div className="w-20 h-20 bg-orange-100 text-orange-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner">
+                      <CheckCircle2 size={40} />
                     </div>
-                    <h3 className="text-4xl font-serif font-bold text-slate-900 mb-6">Message Received.</h3>
-                    <p className="text-slate-500 font-medium mb-12 max-w-sm mx-auto leading-relaxed md:text-lg">
-                      Thank you for reaching out. A studio specialist will review your brief and contact you shortly to discuss your project.
+                    <h3 className="text-3xl font-serif font-bold text-slate-900 mb-4">You're in.</h3>
+                    <p className="text-slate-500 font-medium mb-10 leading-relaxed text-sm">
+                      Our lead editor has received your trial request. We will contact you shortly.
                     </p>
-                    <button 
+                    <button
                       onClick={() => setIsSubmitted(false)}
-                      className="text-[10px] font-black uppercase tracking-[0.2em] text-orange-600 border-b-2 border-orange-600 pb-1.5 hover:text-slate-900 hover:border-slate-900 transition-all"
+                      className="text-sm font-medium text-orange-600 border-b border-orange-600 pb-1 hover:text-slate-900 transition-all"
                     >
-                      Send another message
+                      Send another brief
                     </button>
                   </motion.div>
                 )}

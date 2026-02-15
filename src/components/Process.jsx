@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Globe2 } from 'lucide-react';
+import { Globe2, ArrowRight } from 'lucide-react';
 
 const Process = () => {
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
@@ -49,12 +49,12 @@ const Process = () => {
   ];
 
   return (
-    <section className="bg-white pt-20 pb-32 md:pt-32 md:pb-48 overflow-hidden">
+    <section className="bg-white py-20  overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* --- PROFESSIONAL HEADER --- */}
-        <div className="flex flex-col items-center text-center mb-20 md:mb-32">
-          <motion.div 
+        <div className="flex flex-col items-center text-center mb-12">
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -63,18 +63,18 @@ const Process = () => {
           >
             <Globe2 className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" />
             <span className="text-[9px] font-sans font-black uppercase tracking-[0.25em] text-slate-500 whitespace-nowrap">
-              Operational approach <span className="text-slate-300 mx-1">•</span> Pixbrowni Standard
+              Operational approach <span className="text-slate-300 mx-1">•</span> our process
             </span>
           </motion.div>
 
-          <motion.h2 
+          <motion.h2
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
             className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-slate-900 leading-[1.1] tracking-tight max-w-4xl"
           >
-            Streamlined workflow <br /> 
+            Streamlined workflow <br />
             <span className="italic font-light text-orange-600">for global scale.</span>
           </motion.h2>
         </div>
@@ -83,7 +83,7 @@ const Process = () => {
         <div className="grid md:grid-cols-3 gap-16 lg:gap-24 relative">
           {/* Subtle Connecting Line (Desktop) */}
           <div className="hidden md:block absolute top-12 left-1/4 w-1/2 h-[1px] bg-slate-100 -z-0" />
-          
+
           {steps.map((step, index) => (
             <motion.div
               key={index}
@@ -110,19 +110,25 @@ const Process = () => {
         </div>
 
         {/* --- CALL TO ACTION --- */}
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
           className="mt-24 md:mt-32 text-center"
         >
-          <Link 
-            to="/contact" 
-            className="group relative inline-flex items-center justify-center px-12 py-5 bg-slate-900 text-white rounded-2xl font-sans font-black text-xs uppercase tracking-[0.2em] hover:bg-orange-600 transition-all duration-300 shadow-xl active:scale-95 overflow-hidden"
+          <Link
+            to="/contact"
+            className="group relative inline-flex w-fit items-center justify-center px-10 py-5 bg-slate-900 text-white rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] shadow-xl shadow-slate-900/10 active:scale-95 overflow-hidden transition-all duration-300"
           >
-            <span className="relative z-10">Start Your First Test</span>
-            <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            
+            <span className="relative z-10 flex items-center gap-3">
+              Start Your First Test
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </span>
+
+           
+            <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
           </Link>
         </motion.div>
       </div>

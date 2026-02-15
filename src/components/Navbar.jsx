@@ -78,7 +78,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      <header 
+      <header
         className="fixed top-0 md:top-6 w-full z-[100] px-0 md:px-6"
         onMouseLeave={() => setDesktopServices(false)}
       >
@@ -93,7 +93,7 @@ const Navbar = () => {
               <Link to="/" className="text-[13px] font-bold text-slate-900 hover:text-orange-600 transition-colors uppercase tracking-widest">
                 Home
               </Link>
-              <div 
+              <div
                 className="relative h-24 flex items-center cursor-pointer group"
                 onMouseEnter={() => setDesktopServices(true)}
               >
@@ -108,11 +108,24 @@ const Navbar = () => {
               <Link to="/about" className="text-[13px] font-bold text-slate-900 hover:text-orange-600 transition-colors uppercase tracking-widest">
                 About
               </Link>
+              <Link to="/contact" className="text-[13px] font-bold text-slate-900 hover:text-orange-600 transition-colors uppercase tracking-widest">
+                Contact
+              </Link>
             </div>
 
             <div className="hidden md:flex items-center">
-              <Link to="/contact" className="px-7 py-3.5 rounded-2xl bg-slate-900 text-white font-bold text-[11px] uppercase tracking-widest hover:bg-orange-600 transition-all active:scale-95">
-                Get Started
+              <Link
+                to="/contact"
+                className="group relative inline-flex items-center justify-center px-8 py-4 bg-slate-900 text-white rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] shadow-xl shadow-slate-900/10 active:scale-95 overflow-hidden transition-all duration-300"
+              >
+                {/* Text Layer - z-10 keeps it above the orange slide */}
+                <span className="relative z-10 flex items-center gap-2">
+                  Get Started
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
+
+                {/* Hover Animation: Slides up from bottom */}
+                <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
               </Link>
             </div>
 
@@ -170,19 +183,19 @@ const Navbar = () => {
 
         <div className="pt-8 px-8 pb-12 space-y-8 overflow-y-auto h-[calc(100%-80px)] no-scrollbar">
           <div className="flex flex-col gap-6">
-            {['Home', 'Services', 'Gallery', 'About'].map((item) => (
+            {['Home', 'Services', 'Gallery', 'About', 'Contact'].map((item) => (
               <div key={item} className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <Link 
-                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
-                    onClick={closeMenu} 
+                  <Link
+                    to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                    onClick={closeMenu}
                     className="text-2xl font-bold text-slate-900"
                   >
                     {item}
                   </Link>
-                  
+
                   {item === 'Services' && (
-                    <button 
+                    <button
                       onClick={(e) => {
                         e.preventDefault();
                         setAccordion(accordion === 'main' ? null : 'main');
@@ -193,14 +206,14 @@ const Navbar = () => {
                     </button>
                   )}
                 </div>
-                
+
                 {item === 'Services' && (
                   <AnimatePresence>
                     {accordion === 'main' && (
-                      <motion.div 
-                        initial={{ height: 0, opacity: 0 }} 
-                        animate={{ height: "auto", opacity: 1 }} 
-                        exit={{ height: 0, opacity: 0 }} 
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
                         className="pl-2 space-y-6 pt-4 overflow-hidden  ml-1"
                       >
                         {serviceCategories.map((cat, i) => (

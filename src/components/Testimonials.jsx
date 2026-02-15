@@ -57,18 +57,18 @@ const Testimonials = () => {
           <div className="lg:w-1/3 flex flex-col justify-center">
             <motion.div variants={fadeUp}>
               <h2 className="text-orange-600 font-black tracking-[0.4em] uppercase text-[11px] mb-4">
-                Service Showcase
+                Testimonials
               </h2>
 
               {/* Exactly Matched Hero Size & Responsive Scale */}
               <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight text-slate-900 mb-6 tracking-tight">
-                What our <span className="text-orange-600 italic font-light">partners</span> <br className="hidden sm:block" />
+                What our <span className="text-orange-600 italic font-light">Clients</span> <br className="hidden sm:block" />
                 say about us.
               </h3>
 
               <div className="w-16 h-1 bg-orange-600 mb-8" />
 
-              <p className="text-slate-600 text-lg leading-relaxed max-w-sm">
+              <p className="text-slate-600 text-sm md:text-lg leading-relaxed font-medium px-4 opacity-90">
                 From luxury boutiques to commercial architects, we deliver excellence at scale.
               </p>
             </motion.div>
