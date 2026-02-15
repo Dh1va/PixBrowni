@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Globe2, Mail, Sparkles, CheckCircle2, ChevronDown, Gift, Phone } from 'lucide-react';
+import { Send, Mail, Sparkles, CheckCircle2, ChevronDown, Gift, Phone } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
@@ -11,15 +11,27 @@ const ContactSection = () => {
     e.preventDefault();
     setStatus('sending');
 
-    // EmailJS SDK Integration
-    emailjs.sendForm(
+    // Map form fields to the Common Dynamic Template variables
+    const templateParams = {
+      subject_line: `Free Trial Request: ${e.target.name.value}`,
+      user_name: e.target.name.value,
+      user_email: e.target.email.value,
+      company: "New Trial Lead",
+      service_type: e.target.service.value,
+      volume: "N/A (Trial Request)",
+      phone: e.target.phone.value || "Not Provided",
+      message: e.target.message.value,
+      intro_text: "A new lead has requested a Free Trial via the footer contact section."
+    };
+
+    // EmailJS SDK Integration using the single dynamic template
+    emailjs.send(
       'service_riwmr9z',
       'template_dce4fnq',
-      e.target,
+      templateParams,
       'z10UeD5D-7Xxov_uB'
     )
       .then(() => {
-        // Optimistic UI Success Sequence
         setStatus('success');
         setTimeout(() => {
           setIsSubmitted(true);
@@ -59,7 +71,7 @@ const ContactSection = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 lg:gap-8 items-center">
 
-          {/* --- LEFT SIDE: THE OFFER & CONTACT INFO --- */}
+          {/* --- LEFT SIDE: THE OFFER --- */}
           <motion.div
             className="lg:col-span-6"
             initial="hidden"
@@ -86,8 +98,7 @@ const ContactSection = () => {
             </motion.p>
 
             <div className="space-y-6">
-              {/* Email Link */}
-              <motion.div variants={fadeInUp} className="flex items-center gap-5 group">
+              <motion.div variants={fadeInUp} className="flex items-center gap-5">
                 <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 shadow-sm">
                   <Mail className="w-5 h-5" />
                 </div>
@@ -97,8 +108,7 @@ const ContactSection = () => {
                 </div>
               </motion.div>
 
-              {/* Phone Link */}
-              <motion.div variants={fadeInUp} className="flex items-center gap-5 group">
+              <motion.div variants={fadeInUp} className="flex items-center gap-5">
                 <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-white border border-white/20 shadow-sm">
                   <Phone className="w-5 h-5" />
                 </div>
@@ -110,7 +120,7 @@ const ContactSection = () => {
             </div>
           </motion.div>
 
-          {/* --- RIGHT SIDE: WHITE FORM --- */}
+          {/* --- RIGHT SIDE: FORM --- */}
           <motion.div
             className="lg:col-span-6 flex justify-center lg:justify-end"
             initial={{ opacity: 0, x: 20 }}
@@ -151,13 +161,14 @@ const ContactSection = () => {
                       <div className="relative">
                         <select name="service" required className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all appearance-none cursor-pointer">
                           <option value="" disabled selected>Select a discipline</option>
-                          <optgroup label="Real Estate & Architecture">
+                          <optgroup label="Real Estate Suite">
                             <option>HDR Blending</option>
                             <option>Virtual Staging</option>
+                            <option>Day to Dusk (Twilight)</option>
                             <option>Decluttering</option>
-                            <option>Panorama Stitching</option>
-                            <option>Aerial Editing</option>
                             <option>Floor Planning</option>
+                            <option>Aerial Editing</option>
+                            <option>Panorama Stitching</option>
                           </optgroup>
                           <optgroup label="Retouching & Commercial">
                             <option>Photo Retouching</option>
@@ -179,7 +190,7 @@ const ContactSection = () => {
 
                     <div className="space-y-1.5">
                       <label className="text-sm font-medium text-slate-900 ml-1">Project Brief</label>
-                      <textarea name="message" rows="3" required placeholder="Project details..." className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all resize-none placeholder:text-slate-900/40 text-slate-900" />
+                      <textarea name="message" rows="3" required placeholder="Tell us about your requirements..." className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all resize-none placeholder:text-slate-900/40 text-slate-900" />
                     </div>
 
                     <button
@@ -188,19 +199,16 @@ const ContactSection = () => {
                       className={`w-full py-6 relative overflow-hidden rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 transition-all duration-500 shadow-xl active:scale-95 group mt-4 cursor-pointer
                       ${status === 'success' ? 'bg-emerald-600' : 'bg-slate-900'}`}
                     >
-                      {/* The Text & Icon - z-10 keeps them above the slide-up layer */}
                       <span className="relative z-10 flex items-center gap-3 text-white">
                         {status === 'idle' && "Claim Free Trial"}
                         {status === 'sending' && "Sending..."}
                         {status === 'success' && "Sent Successfully!"}
-
                         <Send className={`w-4 h-4 transition-transform duration-300 ease-out 
                         ${status === 'idle' ? 'group-hover:translate-x-1.5 group-hover:-translate-y-1.5' : ''} 
                         ${status === 'sending' ? 'animate-pulse' : ''}`}
                         />
                       </span>
 
-                      {/* Slide-up Animation Layer - only shows when status is 'idle' */}
                       {status === 'idle' && (
                         <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                       )}
@@ -217,14 +225,14 @@ const ContactSection = () => {
                       <CheckCircle2 size={40} />
                     </div>
                     <h3 className="text-3xl font-serif font-bold text-slate-900 mb-4">You're in.</h3>
-                    <p className="text-slate-500 font-medium mb-10 leading-relaxed text-sm">
-                      Our lead editor has received your trial request. We will contact you shortly.
+                    <p className="text-slate-500 font-medium mb-10 leading-relaxed text-sm px-4">
+                      Our lead editor has received your trial request. We will contact you within 4 business hours.
                     </p>
                     <button
                       onClick={() => setIsSubmitted(false)}
-                      className="text-sm font-medium text-orange-600 border-b border-orange-600 pb-1 hover:text-slate-900 transition-all"
+                      className="text-sm font-medium text-orange-600 border-b border-orange-600 pb-1 hover:text-slate-900 transition-all cursor-pointer"
                     >
-                      Send another brief
+                      Send another request
                     </button>
                   </motion.div>
                 )}
