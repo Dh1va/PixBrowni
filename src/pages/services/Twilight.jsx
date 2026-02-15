@@ -7,14 +7,13 @@ import {
   CheckCircle2,
   Zap,
   Mail,
-  Focus,
+  Moon,
+  Sun,
+  Lightbulb,
+  CloudMoon,
   Sparkles,
-  Users,
-  Palette,
-  ShieldCheck,
-  PackageCheck,
-  ImageIcon,
-  Highlighter
+  Layers,
+  ImageIcon
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import ContactSection from "../../components/ContactSection";
@@ -47,15 +46,17 @@ const imageReveal = {
   }
 };
 
-export default function ModelRetouching() {
+export default function DayToDusk() {
   const location = useLocation();
 
-  // Updated Related Services for Creative/Portrait Focus
   const relatedServices = [
-    { name: "Photo Retouching", path: "/services/photo-retouching" },
-    { name: "Model Retouching", path: "/services/model-retouching" },
-    { name: "Wedding Editing", path: "/services/wedding-editing" },
-    { name: "Food Photo Editing", path: "/services/food-photo-editing" }
+    { name: "HDR Blending", path: "/services/hdr-blending" },
+    { name: "Virtual Staging", path: "/services/virtual-staging" },
+    { name: "Day to Dusk", path: "/services/day-to-dusk" },
+    { name: "Decluttering", path: "/services/decluttering" },
+    { name: "Floor Planning", path: "/services/floor-planning" },
+    { name: "Aerial Editing", path: "/services/aerial-editing" },
+    { name: "Panorama Stitching", path: "/services/panorama-stitching" }
   ];
 
   return (
@@ -71,19 +72,19 @@ export default function ModelRetouching() {
             >
               <Globe2 className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" />
               <span className="text-[9px] font-sans font-black uppercase tracking-[0.25em] text-slate-500 whitespace-nowrap">
-                Services <span className="text-slate-300 mx-1">•</span> Model Retouching
+                Services <span className="text-slate-300 mx-1">•</span> Day to Dusk
               </span>
             </motion.div>
 
             <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-serif leading-[0.95] mb-8 text-slate-900">
-              Model <br />
+              Day to Dusk<br />
               <span className="italic text-orange-600 font-light tracking-tight">
-                Editorial Excellence
+                Virtual Twilight Magic
               </span>
             </motion.h1>
 
             <motion.p variants={fadeInUp} className="text-lg text-slate-600 max-w-xl leading-relaxed mb-10 font-medium">
-              High-end portrait and fashion retouching that preserves natural skin texture while achieving a flawless, magazine-ready finish. We balance technical precision with artistic vision.
+              Turn ordinary daytime shots into high-impact sunset masterpieces. We digitally transform lighting and skies to create the warm, prestigious "Golden Hour" look that attracts 3x more clicks.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-4 sm:gap-6">
@@ -98,7 +99,7 @@ export default function ModelRetouching() {
               </Link>
 
               <Link
-                to="/gallery?category=model"
+                to="/gallery?category=twilight"
                 className="group relative inline-flex items-center justify-center px-10 py-5 bg-transparent border-2 border-slate-200 text-slate-900 rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] overflow-hidden transition-all duration-300"
               >
                 <span className="relative z-10 group-hover:text-white transition-colors duration-300">
@@ -110,8 +111,8 @@ export default function ModelRetouching() {
 
             <motion.div variants={fadeInUp} className="flex gap-12 mt-12 text-sm">
               <div><p className="text-2xl font-serif font-bold text-slate-900">24h</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Turnaround</p></div>
-              <div><p className="text-2xl font-serif font-bold text-slate-900">High</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Fidelity</p></div>
-              <div><p className="text-2xl font-serif font-bold text-slate-900">Non</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Destructive</p></div>
+              <div><p className="text-2xl font-serif font-bold text-slate-900">300%</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Click Rate</p></div>
+              <div><p className="text-2xl font-serif font-bold text-slate-900">Custom</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Sky Library</p></div>
             </motion.div>
           </motion.div>
 
@@ -124,8 +125,8 @@ export default function ModelRetouching() {
           >
             <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-[12px] border-white">
               <ReactCompareSlider
-                itemOne={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200" style={{ filter: "saturate(0.6) brightness(0.9)" }} alt="Original Portrait" />}
-                itemTwo={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200" alt="Retouched Fashion Asset" />}
+                itemOne={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" style={{ filter: "brightness(0.9)" }} alt="Daytime" />}
+                itemTwo={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" alt="Virtual Twilight" />}
                 className="h-[460px] md:h-[600px] cursor-col-resize"
               />
             </div>
@@ -150,17 +151,17 @@ export default function ModelRetouching() {
                 className="scroll-mt-32"
               >
                 <div className="w-full">
-                  <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.4em] mb-6 block">Creative Standards</span>
+                  <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.4em] mb-6 block">Visual Strategy</span>
                   <h2 className="text-4xl md:text-5xl font-serif font-bold mb-10 text-slate-900 leading-tight">
-                    What is <span className="italic font-light text-orange-600">Model Retouching?</span>
+                    What is <span className="italic font-light text-orange-600">Day to Dusk Editing?</span>
                   </h2>
                   
                   <div className="space-y-6 mb-12">
                     <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
-                      Model retouching is the sophisticated process of enhancing beauty, fashion, and portrait photography while strictly maintaining the realism of the human form. High-resolution sensors often capture temporary skin blemishes, uneven tones, and stray hairs that can detract from the subject's impact.
+                      Day to Dusk conversion, also known as Virtual Twilight, is the digital artistry of transforming a daytime property photograph into a stunning dusk or sunset scene. Professional twilight photography is notoriously difficult to capture—requiring specific weather conditions and a very narrow time window that often conflicts with a photographer's schedule.
                     </p>
                     <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
-                      Our approach utilizes advanced **Frequency Separation** and **Dodge & Burn** techniques. This allows us to smooth skin and correct tones on separate layers of detail, ensuring that natural pores and skin textures are never lost to a "plastic" look. From editorial lookbooks to commercial campaigns, we deliver a polished aesthetic that honors the model's natural character.
+                      Our process removes the stress of timing the sun perfectly. We digitally replace flat daytime skies with vibrant golden-hour horizons, "turn on" interior and exterior lights with realistic glows, and adjust the global color temperature to match the twilight mood. This creates a high-end, inviting atmosphere that makes luxury listings stand out and feel like a dream home.
                     </p>
                   </div>
 
@@ -168,7 +169,7 @@ export default function ModelRetouching() {
                     variants={imageReveal}
                     className="rounded-[2.5rem] overflow-hidden aspect-video shadow-2xl border-[8px] border-slate-50"
                   >
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200" alt="Editorial Retouching" className="w-full h-full object-cover" />
+                    <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1200" alt="Twilight Architecture" className="w-full h-full object-cover" />
                   </motion.div>
                 </div>
               </motion.section>
@@ -186,17 +187,17 @@ export default function ModelRetouching() {
                     <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Outcomes</span>
                     <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">
                       The Pixbrowni <br />
-                      <span className="italic font-light text-orange-600"> Retouching Standard</span>
+                      <span className="italic font-light text-orange-600"> Twilight Standard</span>
                     </h2>
                   </motion.div>
                   <div className="grid md:grid-cols-2 gap-x-16 gap-y-20">
                     {[
-                      { title: "Natural Skin Texturing", desc: "Using frequency separation to clear blemishes while preserving 100% of the natural skin pores and textures.", icon: <Focus /> },
-                      { title: "Dodge & Burn Sculpting", desc: "Manually enhancing the subject's natural highlights and shadows to add three-dimensional depth and contouring.", icon: <Highlighter /> },
-                      { title: "Hair & Stray Cleanup", desc: "Precise removal of flyaway hairs and distracting strands while maintaining the natural volume and shine of the hair.", icon: <Sparkles /> },
-                      { title: "Editorial Color Grading", desc: "Sophisticated tone matching to ensure skin tones are healthy, consistent, and balanced across the entire shoot.", icon: <Palette /> },
-                      { title: "Clothing & Crease Fix", desc: "Removing unsightly wrinkles and adjusting fabric drapes to ensure the model looks crisp and well-presented.", icon: <PackageCheck /> },
-                      { title: "Eye & Detail Pop", desc: "Enhancing eye clarity, whitening teeth naturally, and defining jewelry or accessory details for a premium finish.", icon: <Zap /> }
+                      { title: "Sky Replacement", desc: "Swapping flat blue or overcast skies for dramatic sunsets, star-lit nights, or vibrant blue-hour horizons.", icon: <CloudMoon /> },
+                      { title: "Virtual Lighting", desc: "Digitally activating window lights, porch lamps, and garden features to create a warm, lived-in glow.", icon: <Lightbulb /> },
+                      { title: "Global Tone Mapping", desc: "Converting the harsh highlights of midday sun into the soft, long shadows and cool tones of evening.", icon: <Moon /> },
+                      { title: "Window Realism", desc: "Adding realistic interior reflections and light 'spill' onto the surrounding exterior surfaces and landscaping.", icon: <Layers /> },
+                      { title: "Landscape Warmth", desc: "Adjusting the greenery and architectural textures to reflect the warm orange and purple hues of the new sky.", icon: <Sun /> },
+                      { title: "Aesthetic Polish", desc: "Standardizing color temperatures and sharpening details to ensure the final result looks shot on-site, not edited.", icon: <Sparkles /> }
                     ].map((item, i) => (
                       <motion.div key={i} variants={fadeInUp} className="group flex flex-col items-start">
                         <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-orange-600 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 mb-8">{item.icon}</div>
@@ -218,8 +219,8 @@ export default function ModelRetouching() {
                 variants={fadeInUp}
                 className="py-20 flex flex-col items-center text-center bg-[#FAF9F6] rounded-[3rem] border border-slate-100"
               >
-                 <h3 className="text-3xl md:text-6xl font-serif font-bold mb-8 text-slate-900 leading-tight max-w-3xl">Ready for Editorial <br /><span className="italic font-light text-orange-600">Perfection?</span></h3>
-                 <p className="text-slate-600 mb-12 max-w-2xl font-medium px-6">Join fashion photographers and agencies worldwide who rely on our high-fidelity model retouching. Magazine quality, 24-hour turnaround.</p>
+                 <h3 className="text-3xl md:text-6xl font-serif font-bold mb-8 text-slate-900 leading-tight max-w-3xl">Don't Wait for Sunset. <br /><span className="italic font-light text-orange-600">Create It.</span></h3>
+                 <p className="text-slate-600 mb-12 max-w-2xl font-medium px-6">Join top-tier real estate professionals who use virtual twilight to boost their listing performance and attract high-value buyers.</p>
                  <Link to="/contact" className="group relative inline-flex items-center gap-4 bg-orange-600 text-white px-14 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.3em] overflow-hidden transition-all duration-500 shadow-2xl shadow-orange-600/20 active:scale-95">
                     <span className="relative z-10 flex items-center gap-2">Start Your Free Test <ArrowRight size={16} /></span>
                     <div className="absolute inset-0 bg-slate-900 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
@@ -235,12 +236,10 @@ export default function ModelRetouching() {
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="relative"
               >
-                {/* Talk Bubble Header */}
                 <div className="relative bg-slate-900 text-white px-6 py-4 mb-1">
-                  <h3 className="text-[11px] font-black uppercase tracking-widest">Creative Suite</h3>
+                  <h3 className="text-[11px] font-black uppercase tracking-widest">Real Estate Suite</h3>
                   <div className="absolute left-4 -bottom-3 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-slate-900" />
                 </div>
-                {/* List Box */}
                 <div className="bg-white border border-slate-100 shadow-sm p-6 pt-10 rounded-b-xl">
                   <nav className="flex flex-col gap-5">
                     {relatedServices.map((service, i) => {

@@ -35,6 +35,7 @@ const Navbar = () => {
       items: [
         { name: "HDR Blending", path: "/services/hdr-blending" },
         { name: "Virtual Staging", path: "/services/virtual-staging" },
+        { name: "Day to Dusk", path: "/services/day-to-dusk" },
         { name: "Decluttering", path: "/services/decluttering" },
         { name: "Panorama Stitching", path: "/services/panorama-stitching" },
         { name: "Aerial Editing", path: "/services/aerial-editing" },

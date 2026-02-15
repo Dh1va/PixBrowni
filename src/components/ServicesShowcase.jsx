@@ -26,10 +26,13 @@ const ServicesShowcase = () => {
       beforeImg: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800",
       afterImg: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800",
       subServices: [
-        { name: "HDR Blending", link: "/services/hdr-blending" },
-        { name: "Virtual Staging", link: "/services/virtual-staging" },
-        { name: "Sky Replacement", link: "/services/sky-replacement" },
-        { name: "Floor Planning", link: "/services/floor-planning" },
+        { name: "HDR Blending", path: "/services/hdr-blending" },
+        { name: "Virtual Staging", path: "/services/virtual-staging" },
+        { name: "Day to Dusk", path: "/services/day-to-dusk" },
+        { name: "Decluttering", path: "/services/decluttering" },
+        { name: "Panorama Stitching", path: "/services/panorama-stitching" },
+        { name: "Aerial Editing", path: "/services/aerial-editing" },
+        { name: "Floor Planning", path: "/services/floor-planning" },
       ]
     },
     {
@@ -39,10 +42,10 @@ const ServicesShowcase = () => {
       beforeImg: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800",
       afterImg: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800",
       subServices: [
-        { name: "Photo Retouching", link: "/services/photo-retouching" },
-        { name: "Model Retouching", link: "/services/model-retouching" },
-        { name: "Wedding Editing", link: "/services/wedding-editing" },
-        { name: "Food Photo Editing", link: "/services/food-photo-editing" },
+        { name: "Photo Retouching", path: "/services/photo-retouching" },
+        { name: "Model Retouching", path: "/services/model-retouching" },
+        { name: "Wedding Editing", path: "/services/wedding-editing" },
+        { name: "Food Photo Editing", path: "/services/food-photo-editing" },
       ]
     },
     {
@@ -52,9 +55,9 @@ const ServicesShowcase = () => {
       beforeImg: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
       afterImg: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800",
       subServices: [
-        { name: "Clipping Path", link: "/services/clipping-path" },
-        { name: "Image Masking", link: "/services/image-masking" },
-        { name: "Video Editing", link: "/services/video-editing" },
+        { name: "Clipping Path", path: "/services/clipping-path" },
+        { name: "Image Masking", path: "/services/image-masking" },
+        { name: "Video Editing", path: "/services/video-editing" },
       ]
     }
   ];
@@ -64,10 +67,10 @@ const ServicesShowcase = () => {
   // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.2 } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.2 }
     }
   };
 
@@ -77,7 +80,7 @@ const ServicesShowcase = () => {
   };
 
   return (
-    <motion.section 
+    <motion.section
       ref={sectionRef}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
@@ -127,7 +130,7 @@ const ServicesShowcase = () => {
             {services.map((service, index) => (
               <SwiperSlide key={index}>
                 <div className="bg-[#F6F6F6] rounded-[32px] border border-slate-100 overflow-hidden flex flex-col md:flex-row md:h-[500px]">
-                  
+
                   {/* LEFT: SLIDER - Responsive height */}
                   <div className="h-[280px] md:h-full md:w-[45%] relative group cursor-ew-resize no-swiping">
                     <ReactCompareSlider
@@ -168,10 +171,16 @@ const ServicesShowcase = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-6 mb-10">
                       {service.subServices?.map((sub, i) => (
-                        <div key={i} className="flex items-center gap-2.5 group/sub text-slate-700 hover:text-orange-600 transition-colors">
-                          <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0" />
-                          <span className="font-bold text-sm md:text-base tracking-tight">{sub.name}</span>
-                        </div>
+                        <Link
+                          key={i}
+                          to={sub.path}
+                          className="flex items-center gap-2.5 group/sub text-slate-700 hover:text-orange-600 transition-all duration-300"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-orange-600 shrink-0 group-hover/sub:scale-110 transition-transform" />
+                          <span className="font-bold text-sm md:text-base tracking-tight border-b border-transparent group-hover/sub:border-orange-600/30">
+                            {sub.name}
+                          </span>
+                        </Link>
                       ))}
                     </div>
 
@@ -221,14 +230,14 @@ const ServicesShowcase = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="w-12 h-12 rounded-2xl border border-slate-200 flex items-center justify-center bg-white text-slate-900 hover:bg-slate-900 hover:text-white transition-all disabled:opacity-20 active:scale-90"
+              className="w-12 h-12 rounded-2xl border border-slate-200 flex items-center justify-center bg-orange-600 text-white hover:bg-slate-900 hover:text-white transition-all disabled:opacity-20 active:scale-90"
               disabled={activeIndex === 0}
             >
               <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="w-12 h-12 rounded-2xl border border-slate-200 flex items-center justify-center bg-white text-slate-900 hover:bg-slate-900 hover:text-white transition-all disabled:opacity-20 active:scale-90"
+              className="w-12 h-12 rounded-2xl border border-slate-200 flex items-center justify-center bg-orange-600 text-white hover:bg-slate-900 hover:text-white transition-all disabled:opacity-20 active:scale-90"
               disabled={activeIndex === services.length - 1}
             >
               <ChevronRight size={20} />

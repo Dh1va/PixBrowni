@@ -1,264 +1,286 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from "framer-motion";
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
-import { 
-  CheckCircle2, Zap, ArrowRight, ShieldCheck, 
-  Monitor, Plus, Minus, Camera, Sparkles, 
-  Target, PackageCheck, Briefcase, MousePointer2, Layers,
-  Maximize, Globe, Move
+import React from "react";
+import { motion } from "framer-motion";
+import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
+import {
+  ArrowRight,
+  Globe2,
+  CheckCircle2,
+  Zap,
+  Mail,
+  Maximize,
+  Globe,
+  Move,
+  Layers,
+  ImageIcon,
+  Compass
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import ContactSection from "../../components/ContactSection";
+import Process from "../../components/Process";
 
-const PanoramaStitching = () => {
-  const [activeFaq, setActiveFaq] = useState(null);
+// --- Animation Variants ---
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+  }
+};
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
-    },
-  };
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 }
-    }
-  };
+const imageReveal = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    transition: { duration: 1.2, ease: "easeOut" } 
+  }
+};
 
-  const faqs = [
-    { q: "How many images can you stitch together?", a: "We can stitch anything from simple 3-image wide-angles to complex 360-degree multi-row equirectangular panoramas." },
-    { q: "Do you handle parallax errors?", a: "Yes, our senior editors manually correct parallax issues and 'ghosting' caused by moving objects between frames." },
-    { q: "Can you provide files for virtual tours?", a: "Absolutely. We deliver high-resolution panoramas compatible with Matterport, CloudPano, and Kuula." },
-    { q: "Do you offer HDR panoramas?", a: "Yes, we can blend bracketed HDR exposures and then stitch them for the ultimate dynamic range in large spaces." }
+export default function PanoramaStitching() {
+  const location = useLocation();
+
+  // Filtered Real Estate Related Services
+  const relatedServices = [
+    { name: "HDR Blending", path: "/services/hdr-blending" },
+    { name: "Virtual Staging", path: "/services/virtual-staging" },
+    { name: "Day to Dusk", path: "/services/day-to-dusk" },
+    { name: "Decluttering", path: "/services/decluttering" },
+    { name: "Floor Planning", path: "/services/floor-planning" },
+    { name: "Aerial Editing", path: "/services/aerial-editing" },
+    { name: "Panorama Stitching", path: "/services/panorama-stitching" }
   ];
 
   return (
-    <div className="bg-[#F8FAFC] pt-32 md:pt-48 pb-0 overflow-hidden text-slate-900">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* --- HERO SECTION WITH INTERACTIVE SLIDER --- */}
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="grid lg:grid-cols-2 gap-16 items-center mb-40"
-        >
-          <motion.div variants={fadeInUp}>
-            <div className="px-4 py-1.5 rounded-full border border-orange-200 bg-orange-50 w-fit mb-8 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
-              Immersive Field of View
-            </div>
-            <h1 className="text-6xl md:text-8xl font-serif font-bold leading-[0.9] mb-10 text-slate-900">
-              Seamless <br /> <span className="italic font-light text-slate-400">Panoramas.</span>
-            </h1>
-            <p className="text-xl font-medium leading-relaxed max-w-md text-slate-900 mb-12">
-              Expanding the horizon of real estate photography. We stitch multiple frames into flawless, ultra-wide masterpieces with zero distortion.
-            </p>
-            <div className="flex flex-wrap gap-4">
-               <Link to="/contact" className="px-10 py-5 bg-orange-600 text-white rounded-2xl font-bold text-sm shadow-xl shadow-orange-600/20 hover:bg-slate-900 transition-all">Request Free Trial</Link>
-               <Link to="/contact" className="px-10 py-5 bg-white border border-slate-200 text-slate-900 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all">Stitching Specs</Link>
-            </div>
+    <div className="bg-white text-slate-900 selection:bg-orange-100 min-h-screen">
+      
+      {/* --- HERO SECTION --- */}
+      <section className="pt-36 md:pt-44 pb-28 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
+            <motion.div
+              variants={fadeInUp}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6"
+            >
+              <Globe2 className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" />
+              <span className="text-[9px] font-sans font-black uppercase tracking-[0.25em] text-slate-500 whitespace-nowrap">
+                Services <span className="text-slate-300 mx-1">•</span> Panorama Stitching
+              </span>
+            </motion.div>
+
+            <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-serif leading-[0.95] mb-8 text-slate-900">
+              Seamless <br />
+              <span className="italic text-orange-600 font-light tracking-tight">
+                Mastery of the Horizon
+              </span>
+            </motion.h1>
+
+            <motion.p variants={fadeInUp} className="text-lg text-slate-600 max-w-xl leading-relaxed mb-10 font-medium">
+              Expanding the field of view for high-end property marketing. We stitch multiple frames into flawless, ultra-wide masterpieces with zero distortion and perfect geometric alignment.
+            </motion.p>
+
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-4 sm:gap-6">
+              <Link
+                to="/contact"
+                className="group relative inline-flex items-center justify-center px-10 py-5 bg-slate-900 text-white rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] overflow-hidden transition-all duration-300 shadow-xl shadow-slate-900/10 active:scale-95"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  Start Free Sample <ArrowRight className="w-4 h-4" />
+                </span>
+                <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+              </Link>
+
+              <Link
+                to="/gallery?category=panorama"
+                className="group relative inline-flex items-center justify-center px-10 py-5 bg-transparent border-2 border-slate-200 text-slate-900 rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] overflow-hidden transition-all duration-300"
+              >
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                  Our Works
+                </span>
+                <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="flex gap-12 mt-12 text-sm">
+              <div><p className="text-2xl font-serif font-bold text-slate-900">24h</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Turnaround</p></div>
+              <div><p className="text-2xl font-serif font-bold text-slate-900">99%</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Satisfaction</p></div>
+              <div><p className="text-2xl font-serif font-bold text-slate-900">Global</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Scale</p></div>
+            </motion.div>
           </motion.div>
 
-          {/* Slider */}
-          <motion.div variants={fadeInUp} className="relative order-1 lg:order-2">
-            <div className="relative z-10 rounded-[30px] md:rounded-[40px] overflow-hidden shadow-2xl border-[8px] md:border-[12px] border-white bg-white group">
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            variants={imageReveal} 
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-[12px] border-white">
               <ReactCompareSlider
-                itemOne={
-                  <ReactCompareSliderImage 
-                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" 
-                    style={{ filter: 'grayscale(1) opacity(0.5)' }} 
-                    alt="Individual Frames" 
-                  />
-                }
-                itemTwo={
-                  <ReactCompareSliderImage 
-                    src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" 
-                    alt="Stitched Panorama" 
-                  />
-                }
-                className="h-[400px] md:h-[600px] w-full object-cover cursor-col-resize"
+                itemOne={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" style={{ filter: "grayscale(1) opacity(0.5)" }} alt="Individual Frames" />}
+                itemTwo={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200" alt="Stitched Panorama" />}
+                className="h-[460px] md:h-[600px] cursor-col-resize"
               />
-              <div className="absolute top-4 left-4 md:top-6 md:left-6 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full text-white text-[9px] md:text-[10px] font-bold uppercase tracking-widest pointer-events-none">Single Frames</div>
-              <div className="absolute top-4 right-4 md:top-6 md:right-6 px-3 py-1 bg-orange-600/90 backdrop-blur-md rounded-full text-white text-[9px] md:text-[10px] font-bold uppercase tracking-widest pointer-events-none">Seamless Stitch</div>
             </div>
-            <div className="absolute -top-10 -right-10 w-48 h-48 md:w-80 md:h-80 bg-blue-100 rounded-full blur-[60px] md:blur-[100px] opacity-60 -z-10"></div>
           </motion.div>
-        </motion.div>
+        </div>
+      </section>
 
-        {/* --- SECTION: WHAT IS PANORAMA STITCHING --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="mb-48 grid lg:grid-cols-2 gap-20 items-center border-t border-slate-100 pt-32">
-           <motion.div variants={fadeInUp} className="rounded-[56px] overflow-hidden shadow-2xl h-[500px]">
-              <img src="https://images.unsplash.com/photo-1527359443443-84a48abc7df8?q=80&w=1200" className="w-full h-full object-cover" alt="Wide Interior View" />
-           </motion.div>
-           <motion.div variants={fadeInUp}>
-              <h2 className="text-4xl md:text-6xl font-serif font-bold mb-8 text-slate-900">What is <br /><span className="italic font-light text-slate-400">Wide-Angle Stitching?</span></h2>
-              <p className="text-lg font-medium text-slate-900 leading-relaxed mb-8">
-                It is the precise science of combining multiple overlapping photographs into a single wide-angle or 360° image. We use advanced algorithms and manual corrections to:
-              </p>
-              <ul className="space-y-4">
-                {["Eliminate seams and visible transition lines", "Correct lens distortion across all frames", "Maintain consistent exposure and color", "Prepare equirectangular files for virtual tours"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 font-bold text-slate-900 italic">
-                    <CheckCircle2 size={20} className="text-orange-600" /> {item}
-                  </li>
-                ))}
-              </ul>
-           </motion.div>
-        </motion.section>
+      {/* --- MAIN CONTENT AREA --- */}
+      <section className="pb-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24">
+            
+            {/* MAIN CONTENT (Col 1-9) */}
+            <main className="lg:col-span-9 space-y-48">
+              
+              {/* WHAT IS SECTION: FULL WIDTH TEXT */}
+              <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={fadeInUp}
+                className="scroll-mt-32"
+              >
+                <div className="w-full">
+                  <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.4em] mb-6 block">Service Overview</span>
+                  <h2 className="text-4xl md:text-5xl font-serif font-bold mb-10 text-slate-900 leading-tight">
+                    What is <span className="italic font-light text-orange-600">Panorama Stitching?</span>
+                  </h2>
+                  
+                  <div className="space-y-6 mb-12">
+                    <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
+                      Panorama stitching is the precise science of combining multiple overlapping photographs into a single seamless wide-angle or 360-degree equirectangular image. In real estate, standard lenses often fail to capture the true scale of grand ballrooms, expansive gardens, or modern open-plan interiors.
+                    </p>
+                    <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
+                      Our senior editors manually correct parallax errors and "ghosting" caused by moving objects between frames to deliver flawless transitions. We ensure a perfectly flat horizon and zero lens "bowing," providing high-resolution assets that are fully compatible with immersive virtual tour platforms like Matterport and Kuula.
+                    </p>
+                  </div>
 
-        {/* --- SECTION: OUR PROCESS --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="mb-48 pt-20">
-          <div className="text-center mb-20">
-            <motion.p variants={fadeInUp} className="text-[10px] font-black uppercase tracking-[0.3em] text-orange-600 mb-4">The Assembly Line</motion.p>
-            <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-bold text-slate-900">The Stitching Process.</motion.h2>
-          </div>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              { step: "01", title: "Frame Alignment", desc: "Using feature-point detection to perfectly align overlapping data." },
-              { step: "02", title: "Geometric Fix", desc: "Correcting barrel distortion and perspective for a flat horizon." },
-              { step: "03", title: "Color Blending", desc: "Seamlessly transitioning gradients to avoid 'banded' skies or floors." },
-              { step: "04", title: "Detail Masking", desc: "Manually erasing ghosting artifacts caused by moving subjects." }
-            ].map((item, i) => (
-              <motion.div variants={fadeInUp} key={i} className="p-10 rounded-[40px] bg-white border border-slate-100 shadow-sm relative group">
-                <div className="text-5xl font-serif font-bold text-orange-100 mb-6 group-hover:text-orange-600 transition-colors">{item.step}</div>
-                <h4 className="text-xl font-bold mb-4">{item.title}</h4>
-                <p className="text-sm font-medium text-slate-900 leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+                  <motion.div 
+                    variants={imageReveal}
+                    className="rounded-[2.5rem] overflow-hidden aspect-video shadow-2xl border-[8px] border-slate-50"
+                  >
+                    <img src="https://images.unsplash.com/photo-1527359443443-84a48abc7df8?q=80&w=1200" alt="Wide Interior Panorama" className="w-full h-full object-cover" />
+                  </motion.div>
+                </div>
+              </motion.section>
 
-        {/* --- SECTION: WHY CHOOSE --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="mb-48">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-4">
-               <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">Why Choose <br /> <span className="italic font-light text-slate-400">Our Accuracy?</span></motion.h2>
-            </div>
-            <div className="lg:col-span-8 grid sm:grid-cols-2 gap-x-12 gap-y-16">
-               {[
-                 { title: "Zero Distortion", icon: <Move />, desc: "Expert perspective correction that prevents the 'bowing' effect in wide shots." },
-                 { title: "High-Res Output", icon: <Maximize />, desc: "Massive scale delivery suitable for billboard printing or ultra-zoom tours." },
-                 { title: "Tour Readiness", icon: <Globe />, desc: "Perfectly formatted equirectangular metadata for all 360 tour platforms." },
-                 { title: "Scalable Bulk", icon: <Zap />, desc: "Handling hundreds of panoramas daily with consistent geometric precision." }
-               ].map((item, i) => (
-                 <motion.div variants={fadeInUp} key={i} className="group">
-                    <div className="mb-6 p-4 bg-white shadow-sm border border-slate-50 rounded-2xl w-fit text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all">
-                       {item.icon}
-                    </div>
-                    <h4 className="text-xl font-bold mb-3">{item.title}</h4>
-                    <p className="font-medium text-slate-900 leading-relaxed">{item.desc}</p>
-                 </motion.div>
-               ))}
-            </div>
-          </div>
-        </motion.section>
-
-        {/* --- SECTION: IDEAL FOR --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="mb-48 border-t border-slate-100 pt-32">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-4">
-               <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">Tailored for <br /> <span className="italic font-light text-slate-400">Perspective.</span></motion.h2>
-               <motion.p variants={fadeInUp} className="mt-8 text-lg font-medium text-slate-600 leading-relaxed">Essential for showcasing the full scale of massive estates and commercial infrastructure.</motion.p>
-            </div>
-            <div className="lg:col-span-8 grid sm:grid-cols-2 gap-x-12 gap-y-16">
-               {[
-                 { title: "360 Virtual Tours", icon: <Globe color="currentColor" />, desc: "Providing the high-end imagery that powers immersive VR walkthroughs." },
-                 { title: "Estate Landscapes", icon: <Layers color="currentColor" />, desc: "Stitching wide-angle garden and architectural shots for elite listings." },
-                 { title: "Commercial Halls", icon: <Briefcase color="currentColor" />, desc: "Capturing the scale of stadiums, airports, and large industrial warehouses." },
-                 { title: "Hospitality Reels", icon: <Sparkles color="currentColor" />, desc: "Creating stunning wide views for resort lobbies and grand ballroom marketing." }
-               ].map((item, i) => (
-                 <motion.div variants={fadeInUp} key={i} className="group">
-                    <div className="mb-6 flex items-center gap-4">
-                       <div className="p-3 bg-white shadow-sm border border-slate-50 rounded-xl text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all duration-500">{item.icon}</div>
-                       <h4 className="text-xl font-bold">{item.title}</h4>
-                    </div>
-                    <p className="font-medium text-slate-900 leading-relaxed">{item.desc}</p>
-                 </motion.div>
-               ))}
-            </div>
-          </div>
-        </motion.section>
-
-        {/* --- SECTION: PREMIUM DELIVERABLES --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeInUp} className="mb-48 bg-slate-900 rounded-[60px] p-12 md:p-24 text-white relative overflow-hidden">
-           <div className="relative z-10 grid lg:grid-cols-2 gap-20">
-              <div>
-                 <h2 className="text-4xl md:text-5xl font-serif font-bold mb-10">Extreme <br /> Resolution.</h2>
-                 <p className="text-slate-400 text-lg font-light mb-12">Our panoramas are delivered as high-bitrate files to preserve maximum tonal range for post-processing.</p>
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {["Equirectangular Files", "Spherical Projections", "HDR Tone Mapping", "Parallax Correction", "Horizon Straightening", "Artifact Removal"].map((item, i) => (
-                      <div key={i} className="flex items-center gap-3">
-                         <PackageCheck size={20} className="text-orange-500 shrink-0" />
-                         <span className="text-sm font-bold italic tracking-wide">{item}</span>
-                      </div>
+              {/* WHAT WE DELIVER (OUTCOMES) */}
+              <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={staggerContainer}
+                className="-mx-6 px-6"
+              >
+                <div className="max-w-4xl mx-auto">
+                  <motion.div variants={fadeInUp} className="mb-20">
+                    <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Outcomes</span>
+                    <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">
+                      The Pixbrowni <br />
+                      <span className="italic font-light text-orange-600"> Stitching Standard</span>
+                    </h2>
+                  </motion.div>
+                  <div className="grid md:grid-cols-2 gap-x-16 gap-y-20">
+                    {[
+                      { title: "Zero-Distortion Alignment", desc: "Expert barrel and pincushion correction across all frames to ensure straight architectural lines even at extreme widths.", icon: <Move /> },
+                      { title: "Parallax & Ghost Correction", desc: "Manual removal of 'doubled' items or blurred edges where frames overlap, ensuring a single, crisp reality.", icon: <Layers /> },
+                      { title: "360° Equirectangular Export", desc: "Perfectly formatted projections ready for immediate upload to virtual tour and VR walkthrough platforms.", icon: <Globe /> },
+                      { title: "Extreme Resolution Scaling", desc: "Massive scale delivery suitable for ultra-zoom digital tours or billboard-sized property advertisements.", icon: <Maximize /> },
+                      { title: "Seamless Color Blending", desc: "Gradient smoothing to ensure sky and floor tones remain perfectly consistent across the entire field of view.", icon: <ImageIcon /> },
+                      { title: "HDR Panorama Fusion", desc: "The ability to blend multiple HDR exposures per frame before stitching for the ultimate dynamic range.", icon: <Zap /> }
+                    ].map((item, i) => (
+                      <motion.div key={i} variants={fadeInUp} className="group flex flex-col items-start">
+                        <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-orange-600 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 mb-8">{item.icon}</div>
+                        <h4 className="text-xl font-bold text-slate-900 mb-4 uppercase tracking-tighter group-hover:text-orange-600 transition-colors">{item.title}</h4>
+                        <p className="text-slate-600 text-sm md:text-base leading-relaxed font-medium">{item.desc}</p>
+                      </motion.div>
                     ))}
-                 </div>
-              </div>
-              <div className="bg-white/5 backdrop-blur-md rounded-[40px] p-10 border border-white/10 flex flex-col justify-center">
-                 <h4 className="text-2xl font-serif italic mb-6">Technical Standards</h4>
-                 <div className="space-y-6">
-                    <div className="flex justify-between border-b border-white/10 pb-4">
-                       <span className="text-slate-400 font-medium">Standard Delivery</span>
-                       <span className="font-bold">24–48 Hours</span>
-                    </div>
-                    <div className="flex justify-between border-b border-white/10 pb-4">
-                       <span className="text-slate-400 font-medium">Max Resolution</span>
-                       <span className="font-bold">Unlimited px</span>
-                    </div>
-                    <div className="flex justify-between pb-4">
-                       <span className="text-slate-400 font-medium">Format Support</span>
-                       <span className="font-bold">PSB / TIFF / JPG</span>
-                    </div>
-                 </div>
-              </div>
-           </div>
-           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-600/10 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
-        </motion.section>
+                  </div>
+                </div>
+              </motion.section>
 
-        {/* --- SECTION: PRICING --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="mb-48">
-           <div className="text-center mb-24">
-              <motion.p variants={fadeInUp} className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-600 mb-6">Investment</motion.p>
-              <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-bold text-slate-900">Stitching Packages.</motion.h2>
-           </div>
-           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <motion.div variants={fadeInUp} whileHover={{ y: -10 }} className="p-12 md:p-16 rounded-[60px] bg-white border border-slate-100 shadow-xl flex flex-col justify-between">
-                 <div>
-                    <h3 className="text-2xl font-bold mb-2">Basic Panorama</h3>
-                    <p className="text-4xl font-serif font-bold mb-10 italic">Custom Quote</p>
-                    <div className="space-y-5 mb-16 font-medium">
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-600" /> Up to 5 frames</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-600" /> Linear Alignment</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-600" /> Standard Color Correction</div>
-                    </div>
-                 </div>
-                 <Link to="/contact" className="w-full py-6 bg-slate-900 text-white rounded-[24px] font-black uppercase tracking-widest text-[11px] text-center hover:bg-orange-600 transition-all">Get Quote</Link>
+              <Process />
+
+              {/* FINAL CTA SECTION */}
+              <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeInUp}
+                className="py-20 flex flex-col items-center text-center bg-[#FAF9F6] rounded-[3rem] border border-slate-100"
+              >
+                 <h3 className="text-3xl md:text-6xl font-serif font-bold mb-8 text-slate-900 leading-tight max-w-3xl">Go Beyond <br /><span className="italic font-light text-orange-600">The Lens.</span></h3>
+                 <p className="text-slate-600 mb-12 max-w-2xl font-medium px-6">Join elite real estate agencies who rely on our high-resolution stitching pipeline for their immersive listings. Scale your perspective with 24-hour delivery.</p>
+                 <Link to="/contact" className="group relative inline-flex items-center gap-4 bg-orange-600 text-white px-14 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.3em] overflow-hidden transition-all duration-500 shadow-2xl shadow-orange-600/20 active:scale-95">
+                    <span className="relative z-10 flex items-center gap-2">Start Your Free Test <ArrowRight size={16} /></span>
+                    <div className="absolute inset-0 bg-slate-900 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  </Link>
+              </motion.section>
+            </main>
+
+            {/* --- SIDEBAR MENU (RIGHT SIDE) --- */}
+            <aside className="hidden lg:block lg:col-span-3 sticky top-34 h-fit space-y-10">
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="relative"
+              >
+                <div className="relative bg-slate-900 text-white px-6 py-4 mb-1">
+                  <h3 className="text-[11px] font-black uppercase tracking-widest">Real Estate Suite</h3>
+                  <div className="absolute left-4 -bottom-3 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-slate-900" />
+                </div>
+                <div className="bg-white border border-slate-100 shadow-sm p-6 pt-10 rounded-b-xl">
+                  <nav className="flex flex-col gap-5">
+                    {relatedServices.map((service, i) => {
+                      const isActive = location.pathname === service.path;
+                      return (
+                        <Link key={i} to={service.path} className="group flex items-center gap-3 transition-all duration-300">
+                          <CheckCircle2 size={16} className={`shrink-0 transition-colors ${isActive ? "text-orange-600" : "text-slate-300 group-hover:text-orange-600"}`} />
+                          <span className={`text-[13px] font-bold tracking-tight transition-colors ${isActive ? "text-orange-600" : "text-slate-600 group-hover:text-slate-900"}`}>{service.name}</span>
+                        </Link>
+                      );
+                    })}
+                  </nav>
+                </div>
               </motion.div>
 
-              <motion.div variants={fadeInUp} whileHover={{ y: -10 }} className="p-12 md:p-16 rounded-[60px] bg-slate-900 text-white shadow-2xl relative overflow-hidden border-4 border-orange-600/20 flex flex-col justify-between">
-                 <div className="relative z-10">
-                    <div className="flex justify-between items-center mb-10">
-                       <h3 className="text-2xl font-bold">360° Equirectangular</h3>
-                       <div className="bg-orange-600 text-[9px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full">Tour Pro</div>
-                    </div>
-                    <p className="text-4xl font-serif font-bold mb-10 italic">Custom Quote</p>
-                    <div className="space-y-5 mb-16 font-medium text-slate-300">
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-500" /> Full 360 Stitching</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-500" /> Zenith & Nadir Correction</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-500" /> Tour Ready Metadata</div>
-                    </div>
-                 </div>
-                 <Link to="/contact" className="w-full py-6 bg-orange-600 text-white rounded-[24px] font-black uppercase tracking-widest text-[11px] text-center hover:bg-white hover:text-slate-900 transition-all relative z-10">Inquire Now</Link>
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="relative"
+              >
+                <div className="relative bg-slate-900 text-white px-6 py-4 mb-1">
+                  <h3 className="text-[11px] font-black uppercase tracking-widest">Get In Touch</h3>
+                  <div className="absolute left-4 -bottom-3 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-slate-900" />
+                </div>
+                <div className="bg-white border border-slate-100 shadow-sm p-8 pt-12 rounded-b-xl">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 flex items-center gap-2">
+                    <Mail size={12} className="text-orange-600" /> Email-
+                  </p>
+                  <div className="space-y-3">
+                    <a href="mailto:pixbrowni@gmail.com" className="block text-[13px] font-bold text-slate-600 hover:text-orange-600 transition-colors font-sans">pixbrowni@gmail.com</a>
+                  </div>
+                </div>
               </motion.div>
-           </div>
-        </motion.section>
+            </aside>
 
-      </div>
+          </div>
+        </div>
+      </section>
+
+      <ContactSection />
     </div>
   );
-};
-
-export default PanoramaStitching;
+}

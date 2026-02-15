@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Added useEffect
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import { Link, useSearchParams } from 'react-router-dom'; // Added useSearchParams
 
 const Gallery = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [filter, setFilter] = useState('All');
+
+  // Mapping URL query params to your category display names
+  const categoryMap = {
+    'all': 'All',
+    'real-estate': 'Real Estate',
+    'fashion': 'Fashion',
+    'product': 'Product',
+    'architectural': 'Architectural',
+    'retouching': 'Retouching',
+    'aerial': 'Real Estate', // Maps "aerial" button to "Real Estate" category
+    'hdr': 'Real Estate',
+    'twilight': 'Real Estate'
+  };
 
   const categories = ['All', 'Real Estate', 'Fashion', 'Product', 'Architectural', 'Retouching'];
 
@@ -16,6 +30,24 @@ const Gallery = () => {
     { id: 5, title: "High-Rise Suite", category: "Architectural", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1200", size: "medium" },
     { id: 6, title: "Minimalist Studio", category: "Architectural", image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200", size: "small" },
   ];
+
+  // Effect to listen to URL changes
+  useEffect(() => {
+    const categoryQuery = searchParams.get('category');
+    if (categoryQuery && categoryMap[categoryQuery]) {
+      setFilter(categoryMap[categoryQuery]);
+    } else {
+      setFilter('All');
+    }
+  }, [searchParams]);
+
+  // Function to handle manual filter clicks (updates URL too)
+  const handleFilterChange = (cat) => {
+    setFilter(cat);
+    // Find the slug key for the display name to keep URL clean
+    const slug = Object.keys(categoryMap).find(key => categoryMap[key] === cat) || 'all';
+    setSearchParams({ category: slug });
+  };
 
   const filteredProjects = filter === 'All' 
     ? projects 
@@ -41,16 +73,12 @@ const Gallery = () => {
 
           {/* --- HORIZONTAL SCROLL FILTERS --- */}
           <div className="relative mt-12">
-            {/* Subtle Gradient Fades for Mobile Scroll */}
-            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 md:hidden pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 md:hidden pointer-events-none" />
-
             <div className="flex overflow-x-auto no-scrollbar pb-4 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth">
               <div className="flex gap-3 md:gap-4 bg-slate-50 p-1.5 rounded-2xl border border-slate-100 min-w-max">
                 {categories.map((cat) => (
                   <button
                     key={cat}
-                    onClick={() => setFilter(cat)}
+                    onClick={() => handleFilterChange(cat)}
                     className={`px-6 py-2.5 rounded-xl text-[10px] md:text-[11px] font-black uppercase tracking-widest transition-all whitespace-nowrap ${
                       filter === cat 
                       ? "bg-slate-900 text-white shadow-lg" 
@@ -90,7 +118,6 @@ const Gallery = () => {
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
 
-                {/* Desktop/Touch Hover Overlay */}
                 <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-[2px] z-10 flex flex-col justify-end p-8 md:p-10">
                   <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-orange-400 mb-2">{project.category}</p>
@@ -120,15 +147,9 @@ const Gallery = () => {
         </div>
       </div>
 
-      {/* Tailwind Utility for hiding scrollbar */}
       <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </div>
   );

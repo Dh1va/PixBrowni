@@ -1,173 +1,287 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from "framer-motion";
-import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
-import { 
-  CheckCircle2, Zap, ArrowRight, ShieldCheck, 
-  Monitor, Plus, Minus, Camera, Sparkles, 
-  Target, PackageCheck, Briefcase, MousePointer2, Layers,
-  Wand2, Wind, Smile
+import React from "react";
+import { motion } from "framer-motion";
+import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
+import {
+  ArrowRight,
+  Globe2,
+  CheckCircle2,
+  Zap,
+  Mail,
+  Wand2,
+  Wind,
+  Smile,
+  Layers,
+  ShieldCheck,
+  ImageIcon,
+  Maximize,
+  Scissors,
+  PackageCheck
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import ContactSection from "../../components/ContactSection";
+import Process from "../../components/Process";
 
-const ImageMasking = () => {
-  const [activeFaq, setActiveFaq] = useState(null);
+// --- Animation Variants ---
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+  }
+};
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
-    },
-  };
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15 }
-    }
-  };
+const imageReveal = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    transition: { duration: 1.2, ease: "easeOut" } 
+  }
+};
 
-  const faqs = [
-    { q: "When do I need masking instead of clipping path?", a: "Masking is used for objects with complex, fuzzy, or translucent edges like hair, fur, smoke, or sheer fabrics where a vector path would look too sharp and unnatural." },
-    { q: "How do you handle fine hair details?", a: "We use a combination of Channel Masking and Layer Masking techniques to isolate even the thinnest strands of hair while maintaining softness." },
-    { q: "Can you change the background after masking?", a: "Yes. Once an image is masked, the object is isolated, allowing you to place it on any background—solid color, landscape, or commercial set." },
-    { q: "Do you offer 'Alpha Channel' masking?", a: "Absolutely. We deliver Alpha Channel masks within your PSDs, giving you full control over transparency and edge selection." }
+export default function ImageMasking() {
+  const location = useLocation();
+
+  // Related Services for the Creative/Vector Suite
+  const relatedServices = [
+    { name: "Clipping Path", path: "/services/clipping-path" },
+    { name: "Image Masking", path: "/services/image-masking" },
+    { name: "Video Editing", path: "/services/video-editing" }
   ];
 
   return (
-    <div className="bg-[#F8FAFC] pt-32 md:pt-48 pb-0 overflow-hidden text-slate-900">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* --- HERO SECTION --- */}
-        <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="grid lg:grid-cols-2 gap-16 items-center mb-40">
-          <motion.div variants={fadeInUp}>
-            <div className="px-4 py-1.5 rounded-full border border-orange-200 bg-orange-50 w-fit mb-8 text-[10px] font-black uppercase tracking-[0.2em] text-orange-600">
-              Soft Edge Complexity
-            </div>
-            <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-serif font-bold leading-[0.9] mb-10 text-slate-900">
-              Image <br /> <span className="italic font-light text-slate-400">Masking.</span>
+    <div className="bg-white text-slate-900 selection:bg-orange-100 min-h-screen">
+      
+      {/* --- HERO SECTION --- */}
+      <section className="pt-36 md:pt-44 pb-28 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+          <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
+            <motion.div
+              variants={fadeInUp}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm mb-6"
+            >
+              <Globe2 className="w-3.5 h-3.5 text-orange-600 flex-shrink-0" />
+              <span className="text-[9px] font-sans font-black uppercase tracking-[0.25em] text-slate-500 whitespace-nowrap">
+                Services <span className="text-slate-300 mx-1">•</span> Image Masking
+              </span>
+            </motion.div>
+
+            <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-serif leading-[0.95] mb-8 text-slate-900">
+              Image <br />
+              <span className="italic text-orange-600 font-light tracking-tight">
+                Soft Edge Complexity
+              </span>
             </motion.h1>
-            <motion.p variants={fadeInUp} className="text-xl font-medium leading-relaxed max-w-md text-slate-900 mb-12">
-              Isolating the impossible. From fine hair strands to sheer fabrics, our masking services preserve the softness and transparency of your most complex subjects.
+
+            <motion.p variants={fadeInUp} className="text-lg text-slate-600 max-w-xl leading-relaxed mb-10 font-medium">
+              Isolating the impossible. From fine hair strands to translucent glass, our masking services preserve the organic softness and transparency of your most complex subjects.
             </motion.p>
-            <motion.div variants={fadeInUp}>
-               <Link to="/contact" className="inline-block px-10 py-5 bg-orange-600 text-white rounded-2xl font-black uppercase tracking-widest text-xs shadow-xl shadow-orange-600/20 hover:bg-slate-900 transition-all">
-                  Request Free Trial
-               </Link>
+
+            <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-4 sm:gap-6">
+              <Link
+                to="/contact"
+                className="group relative inline-flex items-center justify-center px-10 py-5 bg-slate-900 text-white rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] overflow-hidden transition-all duration-300 shadow-xl shadow-slate-900/10 active:scale-95"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  Start Free Sample <ArrowRight className="w-4 h-4" />
+                </span>
+                <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+              </Link>
+
+              <Link
+                to="/gallery?category=masking"
+                className="group relative inline-flex items-center justify-center px-10 py-5 bg-transparent border-2 border-slate-200 text-slate-900 rounded-[1.5rem] font-bold text-[10px] uppercase tracking-[0.3em] overflow-hidden transition-all duration-300"
+              >
+                <span className="relative z-10 group-hover:text-white transition-colors duration-300">
+                  Our Works
+                </span>
+                <div className="absolute inset-0 bg-orange-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="flex gap-12 mt-12 text-sm">
+              <div><p className="text-2xl font-serif font-bold text-slate-900">24h</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Turnaround</p></div>
+              <div><p className="text-2xl font-serif font-bold text-slate-900">High</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Complexity</p></div>
+              <div><p className="text-2xl font-serif font-bold text-slate-900">Alpha</p><p className="text-slate-600 font-bold uppercase text-[9px] tracking-widest">Channel Support</p></div>
             </motion.div>
           </motion.div>
 
-          <motion.div variants={fadeInUp} className="relative order-1 lg:order-2">
-            <div className="relative z-10 rounded-[30px] md:rounded-[40px] overflow-hidden shadow-2xl border-[8px] md:border-[12px] border-white bg-white group">
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            variants={imageReveal} 
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative rounded-[40px] overflow-hidden shadow-2xl border-[12px] border-white">
               <ReactCompareSlider
-                itemOne={
-                  <ReactCompareSliderImage 
-                    src="https://images.unsplash.com/photo-1517423568366-8b83523034fd?q=80&w=1200" 
-                    style={{ filter: 'brightness(0.8)' }} 
-                    alt="Original Subject" 
-                  />
-                }
-                itemTwo={
-                  <ReactCompareSliderImage 
-                    src="https://images.unsplash.com/photo-1517423568366-8b83523034fd?q=80&w=1200" 
-                    style={{ backgroundColor: '#F1F5F9' }}
-                    alt="Masked Subject" 
-                  />
-                }
-                className="h-[400px] md:h-[600px] w-full object-cover cursor-col-resize"
+                itemOne={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1517423568366-8b83523034fd?q=80&w=1200" style={{ filter: "brightness(0.8)" }} alt="Original Complex Edge" />}
+                itemTwo={<ReactCompareSliderImage src="https://images.unsplash.com/photo-1517423568366-8b83523034fd?q=80&w=1200" style={{ backgroundColor: '#F1F5F9' }} alt="Masked Subject" />}
+                className="h-[460px] md:h-[600px] cursor-col-resize"
               />
-              <div className="absolute top-4 left-4 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-widest">Complex Background</div>
-              <div className="absolute top-4 right-4 px-3 py-1 bg-orange-600/90 backdrop-blur-md rounded-full text-white text-[10px] font-bold uppercase tracking-widest">Perfect Mask</div>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
+      </section>
 
-        {/* --- SECTION: WHAT IS MASKING --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="mb-48 grid lg:grid-cols-2 gap-20 items-center border-t border-slate-100 pt-32">
-           <motion.div variants={fadeInUp} className="rounded-[56px] overflow-hidden shadow-2xl h-[500px]">
-              <img src="https://images.unsplash.com/photo-1521119989659-a83eee4882c2?q=80&w=1200" className="w-full h-full object-cover" alt="Model Hair Masking" />
-           </motion.div>
-           <motion.div variants={fadeInUp}>
-              <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-bold mb-8 text-slate-900">What is <br /><span className="italic font-light text-slate-400">Layer Masking?</span></motion.h2>
-              <motion.p variants={fadeInUp} className="text-lg font-medium text-slate-900 leading-relaxed mb-8">
-                It is an advanced Photoshop technique used to isolate subjects with soft or difficult edges. Unlike clipping paths, masking allows for transparency control to:
-              </motion.p>
-              <ul className="space-y-4">
-                {["Isolate human hair, animal fur, and fuzzy edges", "Retain the transparency of glass and sheer fabrics", "Create natural transitions for foliage and complex plants", "Enable high-end compositing without 'halo' effects"].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 font-bold text-slate-900 italic">
-                    <CheckCircle2 size={20} className="text-orange-600" /> {item}
-                  </li>
-                ))}
-              </ul>
-           </motion.div>
-        </motion.section>
+      {/* --- MAIN CONTENT AREA --- */}
+      <section className="pb-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24">
+            
+            {/* MAIN CONTENT (Col 1-9) */}
+            <main className="lg:col-span-9 space-y-48">
+              
+              {/* WHAT IS SECTION: FULL WIDTH TEXT */}
+              <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={fadeInUp}
+                className="scroll-mt-32"
+              >
+                <div className="w-full">
+                  <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.4em] mb-6 block">Technical Overview</span>
+                  <h2 className="text-4xl md:text-5xl font-serif font-bold mb-10 text-slate-900 leading-tight">
+                    What is <span className="italic font-light text-orange-600">Image Masking?</span>
+                  </h2>
+                  
+                  <div className="space-y-6 mb-12">
+                    <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
+                      Image masking is an advanced Photoshop technique used to isolate subjects with soft, fuzzy, or translucent edges that a standard vector clipping path cannot handle. While clipping paths are ideal for hard-edged products, masking is essential for capturing the micro-details of human hair, animal fur, smoke, and sheer fabrics.
+                    </p>
+                    <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
+                      At Pixbrowni, we utilize a combination of Channel Masking and manual Layer Masking to ensure that even the thinnest strands are preserved. This non-destructive workflow allows for flawless transparency control, enabling your subjects to be placed naturally onto any high-end commercial or editorial background without "halo" effects or jagged borders.
+                    </p>
+                  </div>
 
-        {/* --- SECTION: IDEAL FOR --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} className="mb-48 border-t border-slate-100 pt-32">
-          <div className="grid lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-4">
-               <motion.h2 variants={fadeInUp} className="text-4xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">Tailored for <br /> <span className="italic font-light text-slate-400">The Details.</span></motion.h2>
-               <motion.p variants={fadeInUp} className="mt-8 text-lg font-medium text-slate-600 leading-relaxed">Handling the technical complexity that basic removal tools simply cannot touch.</motion.p>
-            </div>
-            <div className="lg:col-span-8 grid sm:grid-cols-2 gap-x-12 gap-y-16">
-               {[
-                 { title: "Beauty & Fashion", icon: <Smile color="currentColor" />, desc: "Isolating models with flowing hair for high-fashion digital billboards." },
-                 { title: "Pet Products", icon: <Wind color="currentColor" />, desc: "Perfectly masking fur for animal accessories and veterinary marketing." },
-                 { title: "Beverage Brands", icon: <Layers color="currentColor" />, desc: "Retaining the transparency of bottles and the splash of liquids." },
-                 { title: "Outdoor Lifestyle", icon: <Wand2 color="currentColor" />, desc: "Masking complex trees and landscapes for lifestyle composites." }
-               ].map((item, i) => (
-                 <motion.div variants={fadeInUp} key={i} className="group">
-                    <div className="mb-6 flex items-center gap-4">
-                       <div className="p-3 bg-white shadow-sm border border-slate-50 rounded-xl text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all duration-500">{item.icon}</div>
-                       <h4 className="text-xl font-bold">{item.title}</h4>
-                    </div>
-                    <p className="font-medium text-slate-900 leading-relaxed">{item.desc}</p>
-                 </motion.div>
-               ))}
-            </div>
+                  <motion.div 
+                    variants={imageReveal}
+                    className="rounded-[2.5rem] overflow-hidden aspect-video shadow-2xl border-[8px] border-slate-50"
+                  >
+                    <img src="https://images.unsplash.com/photo-1521119989659-a83eee4882c2?q=80&w=1200" alt="Model Hair Masking" className="w-full h-full object-cover" />
+                  </motion.div>
+                </div>
+              </motion.section>
+
+              {/* WHAT WE DELIVER (OUTCOMES) */}
+              <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={staggerContainer}
+                className="-mx-6 px-6"
+              >
+                <div className="max-w-4xl mx-auto">
+                  <motion.div variants={fadeInUp} className="mb-20">
+                    <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Outcomes</span>
+                    <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 leading-tight">
+                      The Pixbrowni <br />
+                      <span className="italic font-light text-orange-600"> Masking Standard</span>
+                    </h2>
+                  </motion.div>
+                  <div className="grid md:grid-cols-2 gap-x-16 gap-y-20">
+                    {[
+                      { title: "Fine Hair Isolation", desc: "Capturing individual strands of human hair or pet fur while maintaining soft, natural transitions against any background.", icon: <Smile /> },
+                      { title: "Transparency Control", desc: "Retaining the translucent properties of glass bottles, sheer fabrics, and liquid splashes for high-end beverage and fashion ads.", icon: <Layers /> },
+                      { title: "Channel Masking Mastery", desc: "Advanced technical selection based on color channels to isolate complex objects like winter trees or mesh surfaces.", icon: <Wand2 /> },
+                      { title: "Alpha Channel Delivery", desc: "Saving masks within Alpha Channels in your PSD files, providing your design team with total control over transparency.", icon: <Maximize /> },
+                      { title: "Refine Edge Precision", desc: "Manual cleanup of edge 'spill' and color contamination to ensure the subject blends perfectly into new environments.", icon: <Wind /> },
+                      { title: "High-Volume Production", desc: "Scalable workflows capable of processing large-scale fashion lookbooks and catalogs with a 24-hour turnaround.", icon: <PackageCheck /> }
+                    ].map((item, i) => (
+                      <motion.div key={i} variants={fadeInUp} className="group flex flex-col items-start">
+                        <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-orange-600 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-all duration-500 mb-8">{item.icon}</div>
+                        <h4 className="text-xl font-bold text-slate-900 mb-4 uppercase tracking-tighter group-hover:text-orange-600 transition-colors">{item.title}</h4>
+                        <p className="text-slate-600 text-sm md:text-base leading-relaxed font-medium">{item.desc}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.section>
+
+              <Process />
+
+              {/* FINAL CTA SECTION */}
+              <motion.section 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeInUp}
+                className="py-20 flex flex-col items-center text-center bg-[#FAF9F6] rounded-[3rem] border border-slate-100"
+              >
+                 <h3 className="text-3xl md:text-6xl font-serif font-bold mb-8 text-slate-900 leading-tight max-w-3xl">Flawless Edges. <br /><span className="italic font-light text-orange-600">Total Transparency.</span></h3>
+                 <p className="text-slate-600 mb-12 max-w-2xl font-medium px-6">Join high-fashion brands and beverage companies who rely on our advanced masking pipeline for their complex isolation needs.</p>
+                 <Link to="/contact" className="group relative inline-flex items-center gap-4 bg-orange-600 text-white px-14 py-5 rounded-2xl text-xs font-black uppercase tracking-[0.3em] overflow-hidden transition-all duration-500 shadow-2xl shadow-orange-600/20 active:scale-95">
+                    <span className="relative z-10 flex items-center gap-2">Start Your Free Test <ArrowRight size={16} /></span>
+                    <div className="absolute inset-0 bg-slate-900 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  </Link>
+              </motion.section>
+            </main>
+
+            {/* --- SIDEBAR MENU (RIGHT SIDE) --- */}
+            <aside className="hidden lg:block lg:col-span-3 sticky top-34 h-fit space-y-10">
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="relative"
+              >
+                {/* Talk Bubble Header */}
+                <div className="relative bg-slate-900 text-white px-6 py-4 mb-1">
+                  <h3 className="text-[11px] font-black uppercase tracking-widest">Creative Suite</h3>
+                  <div className="absolute left-4 -bottom-3 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-slate-900" />
+                </div>
+                {/* List Box */}
+                <div className="bg-white border border-slate-100 shadow-sm p-6 pt-10 rounded-b-xl">
+                  <nav className="flex flex-col gap-5">
+                    {relatedServices.map((service, i) => {
+                      const isActive = location.pathname === service.path;
+                      return (
+                        <Link key={i} to={service.path} className="group flex items-center gap-3 transition-all duration-300">
+                          <CheckCircle2 size={16} className={`shrink-0 transition-colors ${isActive ? "text-orange-600" : "text-slate-300 group-hover:text-orange-600"}`} />
+                          <span className={`text-[13px] font-bold tracking-tight transition-colors ${isActive ? "text-orange-600" : "text-slate-600 group-hover:text-slate-900"}`}>{service.name}</span>
+                        </Link>
+                      );
+                    })}
+                  </nav>
+                </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="relative"
+              >
+                <div className="relative bg-slate-900 text-white px-6 py-4 mb-1">
+                  <h3 className="text-[11px] font-black uppercase tracking-widest">Get In Touch</h3>
+                  <div className="absolute left-4 -bottom-3 w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-slate-900" />
+                </div>
+                <div className="bg-white border border-slate-100 shadow-sm p-8 pt-12 rounded-b-xl">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 flex items-center gap-2">
+                    <Mail size={12} className="text-orange-600" /> Email-
+                  </p>
+                  <div className="space-y-3">
+                    <a href="mailto:pixbrowni@gmail.com" className="block text-[13px] font-bold text-slate-600 hover:text-orange-600 transition-colors font-sans">pixbrowni@gmail.com</a>
+                  </div>
+                </div>
+              </motion.div>
+            </aside>
+
           </div>
-        </motion.section>
+        </div>
+      </section>
 
-        {/* --- SECTION: PRICING --- */}
-        <motion.section initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="mb-48">
-           <div className="text-center mb-24">
-              <motion.p variants={fadeInUp} className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-600 mb-6">Investment</motion.p>
-              <motion.h2 variants={fadeInUp} className="text-4xl md:text-6xl font-serif font-bold text-slate-900">Masking Packages.</motion.h2>
-           </div>
-           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <motion.div variants={fadeInUp} whileHover={{ y: -10 }} className="p-12 md:p-16 rounded-[60px] bg-white border border-slate-100 shadow-xl flex flex-col justify-between">
-                 <div>
-                    <h3 className="text-2xl font-bold mb-2">Alpha Channel</h3>
-                    <p className="text-4xl font-serif font-bold mb-10 italic">Custom Quote</p>
-                    <div className="space-y-5 mb-16 font-medium">
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-600" /> Channel Masking Output</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-600" /> Soft-Edge Processing</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-600" /> 24h Standard Delivery</div>
-                    </div>
-                 </div>
-                 <Link to="/contact" className="w-full py-6 bg-slate-900 text-white rounded-[24px] font-black uppercase tracking-widest text-[11px] text-center hover:bg-orange-600 transition-all">Select Basic</Link>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} whileHover={{ y: -10 }} className="p-12 md:p-16 rounded-[60px] bg-slate-900 text-white shadow-2xl relative overflow-hidden flex flex-col justify-between border-4 border-orange-600/20">
-                 <div className="relative z-10">
-                    <h3 className="text-2xl font-bold text-white mb-2">Transparency Master</h3>
-                    <p className="text-4xl font-serif font-bold mb-10 italic text-white">Custom Quote</p>
-                    <div className="space-y-5 mb-16 font-medium text-slate-300">
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-500" /> Hair & Mesh Detailing</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-500" /> Glass & Liquid Transparency</div>
-                       <div className="flex items-center gap-3"><CheckCircle2 size={18} className="text-orange-500" /> Layered PSD with Masks</div>
-                    </div>
-                 </div>
-                 <Link to="/contact" className="w-full py-6 bg-orange-600 text-white rounded-[24px] font-black uppercase tracking-widest text-[11px] text-center hover:bg-white hover:text-slate-900 transition-all relative z-10">Request Sample</Link>
-              </motion.div>
-           </div>
-        </motion.section>
-
-      </div>
+      <ContactSection />
     </div>
   );
-};
-
-export default ImageMasking;
+}

@@ -11,6 +11,7 @@ import Gallery from './pages/Gallery';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import HDRBlending from './pages/services/HDRBlending';
+import Twilight from './pages/services/Twilight';
 import AerialEditing from './pages/services/AerialEditing';
 import PanoramaStitching from './pages/services/PanoramaStitching';
 import FloorPlanning from './pages/services/FloorPlanning';
@@ -43,6 +44,8 @@ function App() {
            
             <Route path="/services" element={<Services />} />
             <Route path="/services/hdr-blending" element={<HDRBlending />} />
+            <Route path="/services/day-to-dusk" element={<Twilight />} />
+
             <Route path="/services/aerial-editing" element={<AerialEditing />} />
             <Route path="/services/panorama-stitching" element={<PanoramaStitching />} />
             <Route path="/services/floor-planning" element={<FloorPlanning />} />
