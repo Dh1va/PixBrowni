@@ -11,20 +11,18 @@ const ContactSection = () => {
     e.preventDefault();
     setStatus('sending');
 
-    // Map form fields to the Common Dynamic Template variables
+    // MAPPING DATA TO TEMPLATE VARIABLES (Matching Contact Page Exactly)
     const templateParams = {
       subject_line: `Free Trial Request: ${e.target.name.value}`,
       user_name: e.target.name.value,
       user_email: e.target.email.value,
-      company: "New Trial Lead",
+      company: "Trial Lead (Footer)",
+      phone: e.target.phone.value || "Not provided",
       service_type: e.target.service.value,
-      volume: "N/A (Trial Request)",
-      phone: e.target.phone.value || "Not Provided",
+      volume: "Trial (3 Images)", // Fixed string for trial requests
       message: e.target.message.value,
-      intro_text: "A new lead has requested a Free Trial via the footer contact section."
     };
 
-    // EmailJS SDK Integration using the single dynamic template
     emailjs.send(
       'service_riwmr9z',
       'template_dce4fnq',
@@ -41,7 +39,7 @@ const ContactSection = () => {
       .catch((error) => {
         console.error('EmailJS Error:', error);
         setStatus('idle');
-        alert("Submission failed. Please try again or email us directly at pixbrowni@gmail.com");
+        alert("Transmission failed. Please email us directly at pixbrowni@gmail.com");
       });
   };
 
@@ -83,7 +81,7 @@ const ContactSection = () => {
           >
             <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-sm mb-8">
               <Gift className="w-4 h-4 text-white flex-shrink-0" />
-              <span className="text-[10px] font-sans font-black uppercase tracking-[0.25em] text-white whitespace-nowrap">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-[0.25em] text-white whitespace-nowrap">
                 Exclusive Invitation
               </span>
             </motion.div>
@@ -103,7 +101,7 @@ const ContactSection = () => {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-medium text-white/70 mb-0.5">Instant Inquiry</p>
+                  <p className="text-[11px] font-medium text-white/70 mb-0.5 uppercase tracking-wider">Instant Inquiry</p>
                   <p className="text-base font-bold text-white font-sans tracking-tight">pixbrowni@gmail.com</p>
                 </div>
               </motion.div>
@@ -113,7 +111,7 @@ const ContactSection = () => {
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-medium text-white/70 mb-0.5">Direct Support</p>
+                  <p className="text-[11px] font-medium text-white/70 mb-0.5 uppercase tracking-wider">Direct Support</p>
                   <p className="text-base font-bold text-white font-sans tracking-tight">+91 75024 73853</p>
                 </div>
               </motion.div>
@@ -128,7 +126,7 @@ const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <div className="w-full max-w-[400px] bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-white/20">
+            <div className="w-full max-w-[400px] bg-white rounded-[2.5rem] p-8 md:p-10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-white/20 text-slate-900">
               <AnimatePresence mode="wait">
                 {!isSubmitted ? (
                   <motion.form
@@ -139,58 +137,51 @@ const ContactSection = () => {
                     exit={{ opacity: 0, scale: 0.95 }}
                     className="space-y-5"
                   >
-                    <div className="space-y-1.5">
-                      <label className="text-sm font-medium text-slate-900 ml-1">Full Name</label>
-                      <input name="name" type="text" required placeholder="Enter your name" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all placeholder:text-slate-900/40 text-slate-900" />
+                    <div className="space-y-1.5 text-slate-900">
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+                      <input name="name" type="text" required placeholder="John Doe" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-slate-900 transition-all placeholder:text-slate-600 text-slate-900" />
                     </div>
 
-                    <div className="space-y-1.5">
-                      <label className="text-sm font-medium text-slate-900 ml-1">Email Address</label>
-                      <input name="email" type="email" required placeholder="hello@studio.com" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all placeholder:text-slate-900/40 text-slate-900" />
+                    <div className="space-y-1.5 text-slate-900">
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+                      <input name="email" type="email" required placeholder="hello@studio.com" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-slate-900 transition-all placeholder:text-slate-600 text-slate-900" />
                     </div>
 
-                    <div className="space-y-1.5">
-                      <label className="text-sm font-medium text-slate-900 ml-1">
-                        Mobile Number <span className="text-slate-400 font-normal">(Optional)</span>
-                      </label>
-                      <input name="phone" type="tel" placeholder="Enter your mobile number" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all placeholder:text-slate-900/40 text-slate-900" />
+                    <div className="space-y-1.5 text-slate-900">
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Mobile Number</label>
+                      <input name="phone" type="tel" placeholder="+91 00000 00000" className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-slate-900 transition-all placeholder:text-slate-600 text-slate-900" />
                     </div>
 
-                    <div className="space-y-1.5 relative">
-                      <label className="text-sm font-medium text-slate-900 ml-1">Interested Service</label>
+                    <div className="space-y-1.5 relative text-slate-900">
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Interested Service</label>
                       <div className="relative">
-                        <select name="service" required className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all appearance-none cursor-pointer">
+                        <select name="service" required className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-900 focus:outline-none focus:border-slate-900 transition-all appearance-none cursor-pointer">
                           <option value="" disabled selected>Select a discipline</option>
                           <optgroup label="Real Estate Suite">
                             <option>HDR Blending</option>
                             <option>Virtual Staging</option>
-                            <option>Day to Dusk (Twilight)</option>
-                            <option>Decluttering</option>
+                            <option>Day to Dusk</option>
                             <option>Floor Planning</option>
-                            <option>Aerial Editing</option>
-                            <option>Panorama Stitching</option>
                           </optgroup>
-                          <optgroup label="Retouching & Commercial">
+                          <optgroup label="Creative Suite">
                             <option>Photo Retouching</option>
                             <option>Model Retouching</option>
                             <option>Wedding Editing</option>
-                            <option>Food Photo Editing</option>
                           </optgroup>
-                          <optgroup label="Editing & Post-Process">
+                          <optgroup label="Vector Suite">
                             <option>Clipping Path</option>
                             <option>Image Masking</option>
-                            <option>Video Editing</option>
                           </optgroup>
                         </select>
                         <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                          <ChevronDown size={18} />
+                          <ChevronDown size={16} />
                         </div>
                       </div>
                     </div>
 
-                    <div className="space-y-1.5">
-                      <label className="text-sm font-medium text-slate-900 ml-1">Project Brief</label>
-                      <textarea name="message" rows="3" required placeholder="Tell us about your requirements..." className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-600/10 focus:border-orange-600 transition-all resize-none placeholder:text-slate-900/40 text-slate-900" />
+                    <div className="space-y-1.5 text-slate-900">
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 ml-1">Project Brief</label>
+                      <textarea name="message" rows="3" required placeholder="Detail your requirements..." className="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-slate-900 transition-all resize-none placeholder:text-slate-600 text-slate-900" />
                     </div>
 
                     <button
@@ -224,13 +215,13 @@ const ContactSection = () => {
                     <div className="w-20 h-20 bg-orange-100 text-orange-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-inner">
                       <CheckCircle2 size={40} />
                     </div>
-                    <h3 className="text-3xl font-serif font-bold text-slate-900 mb-4">You're in.</h3>
+                    <h3 className="text-3xl font-serif font-bold text-slate-900 mb-4">Request Sent.</h3>
                     <p className="text-slate-500 font-medium mb-10 leading-relaxed text-sm px-4">
-                      Our lead editor has received your trial request. We will contact you within 4 business hours.
+                      Our lead editor has received your trial brief. Expect a contact within 4 business hours.
                     </p>
                     <button
                       onClick={() => setIsSubmitted(false)}
-                      className="text-sm font-medium text-orange-600 border-b border-orange-600 pb-1 hover:text-slate-900 transition-all cursor-pointer"
+                      className="text-[10px] font-bold uppercase tracking-widest text-orange-600 border-b-2 border-orange-600 pb-1 hover:text-slate-900 hover:border-slate-900 transition-all cursor-pointer"
                     >
                       Send another request
                     </button>
